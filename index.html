@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=Parkinsans:wght@300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <title>Agenda</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="calendario.js"></script>
+
+</head>
+<body>
+  <header>
+    <div class="logo">AGENDA</div>
+    <nav>
+      <ul>
+        <li><a href="#">Início</a></li>
+        <li><a href="#">Calendário</a></li>
+        <li><a href="#">Tarefas</a></li>
+        <li><a href="#">Configurações</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <aside class="sidebar left">
+      <h2>Categorias</h2>
+      <ul>
+        <li>Pessoal</li>
+        <li>Trabalho</li>
+        <li>Lembretes</li>
+      </ul>
+    </aside>
+    <section class="calendar">
+      <h2>Calendário Semanal</h2>
+      <div class="week">
+        <div class="day">SEGUNDA</div>
+        <div class="day">TERÇA</div>
+        <div class="day">QUARTA</div>
+        <div class="day">QUINTA</div>
+        <div class="day">SEXTA</div>
+        <div class="day">SÁBADO</div>
+        <div class="day">DOMINGO</div>
+      </div>
+      <div id="cronometro">
+        <svg viewBox="0 0 36 36" class="circle" xmlns="http://www.w3.org/2000/svg">
+            <path class="circle-background"
+                  d="M18 2.0845
+                     a 15.9155 15.9155 0 1 1 0 31.831
+                     a 15.9155 15.9155 0 1 1 0 -31.831"
+                  fill="none" stroke="#e6e6e6" stroke-width="3"/>
+            <path class="circle-progress"
+                  d="M18 2.0845
+                     a 15.9155 15.9155 0 1 1 0 31.831
+                     a 15.9155 15.9155 0 1 1 0 -31.831"
+                  fill="none" stroke="#4db8ff" stroke-width="3" stroke-dasharray="0, 100"/>
+        </svg>
+        <div id="time">00:00:00</div>
+    </div>
+      <h2>Visão Mensal</h2>
+      <div class="month">
+        <div class="day">1</div>
+        <div class="day">2</div>
+        <div class="day">3</div>
+        <div class="day">4</div>
+        <div class="day">5</div>
+        <div class="day">6</div>
+        <div class="day">7</div>
+        <div class="day">8</div>
+        <div class="day">9</div>
+        <div class="day">10</div>
+        <div class="day">11</div>
+        <div class="day">12</div>
+        <div class="day">13</div>
+        <div class="day">14</div>
+        <div class="day">15</div>
+        <div class="day">16</div>
+        <div class="day">17</div>
+        <div class="day">18</div>
+        <div class="day">19</div>
+        <div class="day">20</div>
+        <div class="day">21</div>
+        <div class="day">22</div>
+        <div class="day">23</div>
+        <div class="day">24</div>
+        <div class="day">25</div>
+        <div class="day">26</div>
+        <div class="day">27</div>
+        <div class="day">28</div>
+        <div class="day">29</div>
+        <div class="day">30</div>
+        <div class="day">31</div>
+      </div>
+    </section>
+    <aside class="sidebar right">
+      <h2>Próximos Eventos</h2>
+      <ul>
+        <li>Reunião com a equipe</li>
+        <li>Chamada com o cliente</li>
+        <li>Treino na academia</li>
+      </ul>
+    </aside>
+  </main>
+</body>
+</html>
