@@ -1,165 +1,607 @@
+/* General Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: "Ubuntu", serif;
-    background-color: #f8f9fa;
-    color: #333;
-  }
-  
-  header {
-    font-family: "Ubuntu", serif;
-    background-image: linear-gradient(to bottom right, rgb(255, 154, 198), rgb(115, 190, 231));
-    color: rgb(255, 255, 255);
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    padding: 1rem 2rem;
-    position: relative; 
-  }
-  
-  .logo{
-    text-align: center;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  header nav {
-    position: absolute;
-    right: 2rem; 
-  }
-  
-  header .logo {
-    font-family: "Ubuntu", serif;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1rem;
-  }
-  
-  header nav a {
-    font-family: "Ubuntu", serif;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  main {
-    display: flex;
-    margin: 2rem;
-    gap: 1rem;
-  }
-  
-  .sidebar {
-    width: 20%;
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .sidebar h2 {
-    font-family: "Ubuntu", serif;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
+body {
+  font-family: "Ubuntu", serif;
+  background-color: #8091aa51;
+  color: #333;
+}
 
-  .sidebar.left ul li {
-    font-weight: 400;
-    font-family: "Ubuntu", serif;
-    border-radius: 8px; 
-    background-color: #f0f0f0; 
-    padding: 10px;
-    margin-bottom: 5px; 
-    list-style: none; 
-    text-align: center;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-  }
-  
-  .calendar {
-    flex: 1;
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .calendar h2 {
-    font-family: "Ubuntu", serif;
-    padding-top: 2em;
-    margin-bottom: 1rem;
-  }
-  
-  .week {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-  }
-  
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  color: rgb(43, 42, 42);
+}
+
+.nav-container {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1; /* Isso permite que a nav-container ocupe o espaço restante */
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px; /* Espaço entre as opções de navegação */
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: rgb(56, 56, 56);
+  font-size: 16px;
+  display: flex;
+  align-items: center; /* Alinha a imagem e o texto verticalmente */
+}
+
+.nav-links li a img {
+  width: 20px; /* Tamanho do ícone */
+  height: 20px;
+  margin-right: 8px; /* Espaço entre a imagem e o texto */
+}
+
+.nav-links li a:hover {
+  color: #f4a261; /* Cor de destaque quando passar o mouse */
+}
+
+.profile-icon img {
+  width: 30px; /* Tamanho do ícone */
+  height: 30px;
+  border-radius: 50%;
+}
+
+
+main {
+  display: flex;
+  margin: 2rem;
+  gap: 1rem;
+}
+
+.sidebar {
+  width: 20%;
+  background-color: #ffffff00;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0);
+}
+
+.sidebar h2 {
+  font-family: "Ubuntu", serif;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.sidebar.left ul li {
+  font-weight: 400;
+  font-family: "Ubuntu", serif;
+  border: 2px solid #000; 
+  border-radius: 20px;   
+  background-color: #989f8f00; 
+  padding: 10px;
+  margin-bottom: 5px; 
+  list-style: none; 
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.calendar {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Flexbox na barra de ferramentas */
+.fc-header-toolbar .fc-toolbar {
+  display: flex; /* Garante que a barra de ferramentas use Flexbox */
+  justify-content: space-between; /* Distribui os elementos (setas e título) entre as extremidades */
+  align-items: center; /* Alinha os itens verticalmente */
+  width: 100%; /* Garante que ocupe toda a largura disponível */
+}
+
+.fc-toolbar-title {
+  flex-grow: 1; /* O título ocupa o restante do espaço */
+  text-align: right; /* Alinha o título à direita */
+  margin-right: 20px; /* Ajusta o espaço à direita, caso necessário */
+}
+/* Estilo das setas */
+/* Estilo das setas */
+.fc-button-prev .fc-button-next {
+  background-color: #4CAF50; /* Cor de fundo das setas */
+  border: none; /* Remove borda */
+  color: white; /* Cor do texto das setas */
+  font-size: 16px; /* Tamanho da fonte */
+  padding: 10px 15px; /* Ajusta o tamanho do botão */
+  border-radius: 50%; /* Deixa o botão redondo */
+  transition: background-color 0.3s ease; /* Efeito suave ao passar o mouse */
+}
+
+
+/* Remover barras de rolagem no calendário */
+#calendar {
+  overflow: hidden; /* Remove barras de rolagem */
+  height: auto; /* Ajusta a altura dinamicamente */
+}
+
+.fc-daygrid-day-frame {
+  background-color: #ffffff; /* Default background color for days */
+  border-radius: 0px; /* No border radius */
+  transition: 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Change background color of the current day */
+.fc-day-today .fc-daygrid-day-frame {
+  background-color: #676767a4; /* Current day color */
+}
+
+/* Change color when hovering over days */
+.fc-daygrid-day:hover .fc-daygrid-day-frame {
+  background-color: #6e979854; /* Hover color */
+}
+
+.fc-daygrid-day-number {
+  color: #000000; /* Set numbers to white */
+  font-weight: bold; /* Optional: make numbers bold */
+  font-size: 14px; /* Optional: adjust font size */
+}
+
+/* Change background color of the day name bar */
+.fc-col-header {
+  background-color: #07452b00; /* Background color of the bar */
+  color: rgb(0, 0, 0); /* Text color */
+  font-weight: bold; /* Bold text */
+  font-size: 16px; /* Font size */
+  text-align: center; /* Center-align text */
+}
+
+/* Change the color of individual day name cells */
+.fc-col-header-cell {
+  color: rgb(0, 0, 0); /* Text color */
+}
+
+/* Hover effect for day names */
+.fc-col-header-cell:hover {
+  background-color: #6e979854; /* Background color on hover */
+  color: #ffffff; /* Ensures text remains white */
+}
+
+.calendar h2 {
+  font-family: "Ubuntu", serif;
+  padding-top: 2em;
+  margin-bottom: 1rem;
+}
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
 #cronometro {
-    position: relative;
-    width: 200px;
-    height: 200px;
+  position: relative;
+  width: 200px;
+  height: 200px;
 }
 
 .circle {
-    transform: rotate(-90deg); 
+  transform: rotate(-90deg); 
 }
 
 .circle-background {
-    stroke: #e6e6e6;
+  stroke: #e6e6e6;
 }
 
 .circle-progress {
-    transition: stroke-dasharray 1s linear;
+  transition: stroke-dasharray 1s linear;
 }
 
 #time {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px;
-    font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: bold;
 }
 
-  .day {
-    background-color: #e9ecef;
-    padding: 1rem;
-    border-radius: 4px;
-    text-align: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .month {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  
-  .month .day {
-    font-family: "Ubuntu", serif;
-    font-weight: 700;
-    padding: 1rem;
-    background-color: #febddd7b;
-    border-radius: 4px;
-    text-align: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .week .day {
-    color: #ffffff;
-    font-family: "Ubuntu", serif;
-    font-weight: 700;
-    background-color: #72cef36e;
-  }
+.day {
+  background-color: #e9ecef;
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
 
+.month {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.month .day {
+  color: #ffffff;
+  font-family: "Ubuntu", serif;
+  font-weight: 700;
+  padding: 1rem;
+  background-color: #66492fa7;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 2px solid #000; 
+  border-radius: 20px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+#miniCalendarContainer {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+#miniCalendar {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#miniCalendar th {
+  background-color: #007bff;
+  color: white;
+  padding: 5px;
+  font-weight: bold;
+}
+
+#miniCalendar td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#miniCalendar td.today {
+  background-color: #ffeb3b;
+  font-weight: bold;
+  border-radius: 50%;
+}
+.event-indicator {
+  display: block;
+  width: 8px;
+  height: 8px;
+  margin: 4px auto 0;
+  border-radius: 50%;
+}
+#eventForm button {
+  margin-right: 10px;
+}
+
+#cancelBtn {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}
+#openModalBtn {
+  display: inline-block;
+  padding: 12px 24px; /* Maior altura e largura */
+  font-size: 16px; /* Tamanho de fonte maior */
+  font-weight: bold;
+  background-color: #8091aabd; /* Cor de fundo verde */
+  color: white; /* Cor do texto */
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Efeitos de transição */
+  text-align: center;
+  width: 100%; /* Faz o botão ocupar toda a largura disponível */
+}
+
+#openModalBtn:hover {
+  background-color: #8091aa51; /* Cor um pouco mais escura quando o botão é hover */
+  transform: scale(1.05); /* Leve aumento de tamanho quando passar o mouse */
+}
+
+#openModalBtn:focus {
+  outline: none; /* Remove o contorno de foco padrão */
+}
+
+#openModalBtn:active {
+  background-color: #8091aa51; /* Cor ainda mais escura quando pressionado */
+  transform: scale(1.02); /* Efeito de clique */
+}
+
+/* Centralizando o botão na página */
+main {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  height: 100vh; /* Ocupa toda a altura da página */
+}
+/* Estilos do Modal (Popup) */
+
+
+/* Conteúdo do modal */
+.modal-content {
+  background-color: white;
+  border-radius: 30px;
+  padding: 20px;
+  width: 400px; /* Largura fixa */
+  max-width: 90%; /* Para telas pequenas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar destaque */
+  animation: modalAnimation 0.4s ease-out;
+}
+
+/* Animação de entrada do modal */
+@keyframes modalAnimation {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Estilos do botão de fechar */
+.modal .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #888;
+  background-color: transparent;
+  border: none;
+}
+
+.modal .close:hover {
+  color: #333;
+}
+
+/* Estilos do formulário no modal */
+#eventForm {
+  display: flex;
+  flex-direction: column;
+}
+
+#eventForm label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#eventForm input, #eventForm select, #eventForm textarea {
+  padding: 10px;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+#eventForm input[type="date"], #eventForm input[type="time"] {
+  font-family: 'Inter', sans-serif; /* Para melhor exibição de data e hora */
+}
+
+#eventForm textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Botão Salvar */
+#eventForm button {
+  padding: 12px 24px;
+  margin-bottom: 1em;
+  font-size: 16px;
+  background-color: #8091aabd;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#eventForm button:hover {
+  background-color: #8091aa51;
+  transform: scale(1.05);
+}
+
+#eventForm button:focus {
+  outline: none;
+}
+
+#eventForm button:active {
+  background-color: #8091aa51;
+  transform: scale(1.02);
+}
+
+/* Botão Cancelar */
+#cancelEventBtn {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #8091aabd; /* Cor vermelha para cancelar */
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-top: 10px; /* Espaço acima do botão */
+}
+
+#cancelEventBtn:hover{
+  background-color: #8091aa51;
+  transform: scale(1.05);
+}
+
+#editEventBtn {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #8091aabd; /* Cor vermelha para cancelar */
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+#editEventBtn:hover {
+  background-color: #8091aa51;
+  transform: scale(1.05);
+}
+
+#editEventBtn:active {
+  background-color: #8091aa51;
+  transform: scale(1.02);
+}
+
+#cancelEventBtn:focus {
+  outline: none;
+}
+
+#cancelEventBtn:active {
+  background-color: #8091aa51;
+  transform: scale(1.02);
+}
+/* Estilo para o filtro de categorias */
+#filters {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+#filters label {
+    font-size: 16px;
+}
+
+#filters input[type="checkbox"] {
+    display: none; /* Ocultar a caixa de marcação padrão */
+}
+
+/* Estilo para a "caixinha" personalizada */
+#filters input[type="checkbox"] + span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Cor para a categoria "Pessoal" */
+#filters input[type="checkbox"]#filterPessoal:checked + span {
+    background-color: #4caf50; /* Verde */
+    border-color: #4caf50;
+}
+
+/* Cor para a categoria "Trabalho" */
+#filters input[type="checkbox"]#filterTrabalho:checked + span {
+    background-color: #9c27b0; /* Roxo */
+    border-color: #9c27b0;
+}
+
+/* Cor para a categoria "Lembrete" */
+#filters input[type="checkbox"]#filterLembrete:checked + span {
+    background-color: #f44336; /* Vermelho claro */
+    border-color: #f44336;
+}
+
+/* Estilo para quando a caixa de marcação não está marcada */
+#filters input[type="checkbox"]:not(:checked) + span {
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+/* Estilo de hover (quando o usuário passa o mouse sobre a caixa de marcação) */
+#filters input[type="checkbox"] + span:hover {
+    opacity: 0.8;
+}
+
+/* Estilo para o label (texto ao lado da caixa de marcação) */
+#filters label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Estilo para os textos ao lado das caixas de marcação */
+#filters span {
+    margin-left: 10px;
+}
+
+.sidebar3.box{
+  width: 100%;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 1em;
+}
+.box{
+  width: 100%;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1em;
+}
+#eventFilters label {
+  display: block;
+}
+/* Aplicar cor padrão para todos os checkboxes */
+input[type="checkbox"] {
+  accent-color: #ffffff;  /* Cor padrão (opcional) */
+}
+
+/* Personalizar a cor de cada checkbox individualmente */
+input#filterPessoal:checked {
+  accent-color: #d53e3e;  /* Verde para 'Pessoal' */
+}
+
+input#filterTrabalho:checked {
+  accent-color: #2196F3;  /* Laranja para 'Trabalho' */
+}
+
+input#filterLembrete:checked {
+  accent-color: #4CAF50;  /* Azul para 'Lembrete' */
+}
