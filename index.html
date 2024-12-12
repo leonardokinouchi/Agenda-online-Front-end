@@ -6,87 +6,147 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=Parkinsans:wght@300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
   <title>Agenda</title>
   <link rel="stylesheet" href="style.css">
-  <script src="calendario.js"></script>
-
+  <script src="calendario.js" defer></script>
 </head>
 <body>
   <header>
-    <div class="logo">AGENDA</div>
-    <nav>
-      <ul>
-        <li><a href="#">Início</a></li>
-        <li><a href="#">Calendário</a></li>
-        <li><a href="#">Tarefas</a></li>
-        <li><a href="#">Configurações</a></li>
-      </ul>
-    </nav>
-  </header>
+    <div class="nav-container">
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#"><img src="calendar.png" alt="Calendário">Calendário</a></li>
+                <li><a href="#"><img src="analysis.png" alt="Análises">Análises</a></li>
+                <li><a href="#"><img src="note.png" alt="Notificações">Notificações</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="profile-icon">
+        <a href="#"><img src="user.png" alt="Perfil"></a>
+    </div>
+</header>
   <main>
-    <aside class="sidebar left">
-      <h2>Categorias</h2>
-      <ul>
-        <li>Pessoal</li>
-        <li>Trabalho</li>
-        <li>Lembretes</li>
-      </ul>
-    </aside>
-    <section class="calendar">
-      <h2>Calendário Semanal</h2>
-      <div class="week">
-        <div class="day">SEGUNDA</div>
-        <div class="day">TERÇA</div>
-        <div class="day">QUARTA</div>
-        <div class="day">QUINTA</div>
-        <div class="day">SEXTA</div>
-        <div class="day">SÁBADO</div>
-        <div class="day">DOMINGO</div>
+      <section class="calendar">
+        <div id="calendar"></div>
+      </section>
+      <aside class="sidebar right">
+        <div class="box">
+          <div id="miniCalendarContainer">
+            <h3>Calendário</h3>
+            <div id="miniCalendarHeader"></div>
+            <table id="miniCalendar">
+              <tbody></tbody>
+            </table>
+          </div>
+          
+          <button id="openModalBtn">Novo Evento</button>
+        </div>    
+    <div class="sidebar2">
+      <div class="box">
+        <h2>Filtrar Eventos</h2>
+        <div id="eventFilters">
+          <label>
+            <input type="checkbox" id="filterPessoal" checked class="filter-checkbox pessoal">
+            Pessoal
+          </label>
+          <label>
+            <input type="checkbox" id="filterTrabalho" checked class="filter-checkbox trabalho">
+            Trabalho
+          </label>
+          <label>
+            <input type="checkbox" id="filterLembrete" checked class="filter-checkbox lembrete">
+            Lembrete
+          </label>
+        </div>
+        
+        
+        
       </div>
-      
-      <h2>Visão Mensal</h2>
-      <div class="month">
-        <div class="day">1</div>
-        <div class="day">2</div>
-        <div class="day">3</div>
-        <div class="day">4</div>
-        <div class="day">5</div>
-        <div class="day">6</div>
-        <div class="day">7</div>
-        <div class="day">8</div>
-        <div class="day">9</div>
-        <div class="day">10</div>
-        <div class="day">11</div>
-        <div class="day">12</div>
-        <div class="day">13</div>
-        <div class="day">14</div>
-        <div class="day">15</div>
-        <div class="day">16</div>
-        <div class="day">17</div>
-        <div class="day">18</div>
-        <div class="day">19</div>
-        <div class="day">20</div>
-        <div class="day">21</div>
-        <div class="day">22</div>
-        <div class="day">23</div>
-        <div class="day">24</div>
-        <div class="day">25</div>
-        <div class="day">26</div>
-        <div class="day">27</div>
-        <div class="day">28</div>
-        <div class="day">29</div>
-        <div class="day">30</div>
-        <div class="day">31</div>
-      </div>
-    </section>
-    <aside class="sidebar right">
-      <h2>Próximos Eventos</h2>
-      <ul>
-        <li>Reunião com a equipe</li>
-        <li>Chamada com o cliente</li>
-        <li>Treino na academia</li>
-      </ul>
-    </aside>
+      <div class="sidebar3 box">
+        <h2>Próximos Eventos</h2>
+        <ul id="upcomingEventsList">
+        </aside>
   </main>
+        <!-- Lista dinâmica de eventos será gerada aqui -->
+      </ul>
+    </div>
+  </div>
+  <!-- Modal para adicionar eventos -->
+  <div id="eventModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Adicionar Evento</h2>
+      <form id="eventForm">
+        <label for="eventTitle">Título:</label>
+        <input type="text" id="eventTitle" placeholder="Título do evento" required>
+        
+        <label for="eventCategory">Categoria:</label>
+        <select id="eventCategory">
+          <option value="Pessoal">Pessoal</option>
+          <option value="Trabalho">Trabalho</option>
+          <option value="Lembrete">Lembrete</option>
+        </select>
+        
+        <label for="eventDate">Data:</label>
+        <input type="date" id="eventDate" required>
+        
+        <label for="eventTime">Hora:</label>
+        <input type="time" id="eventTime" required>
+        
+        <label for="eventDescription">Descrição:</label>
+        <textarea id="eventDescription" placeholder="Adicione uma descrição"></textarea>
+        
+        <button type="submit">Salvar</button>
+        <button type="button" id="cancelBtn">Cancelar</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal para ver os detalhes do evento -->
+  <div id="eventDetailsModal" class="modal hidden">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="detailsTitle">Título do Evento</h2>
+      <p id="detailsDate">Data: </p>
+      <p id="detailsTime">Hora: </p>
+      <p id="detailsCategory">Categoria: </p>
+      <p id="detailsDescription">Descrição: </p>
+      <button id="editEventBtn">Editar Evento</button>
+      <button id="cancelEventBtn">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Modal para editar evento (botão excluir dentro deste modal) -->
+<div id="eventEditModal" class="modal hidden">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Editar Evento</h2>
+      <form id="eventEditForm">
+          <label for="editEventTitle">Título:</label>
+          <input type="text" id="editEventTitle" required>
+
+          <label for="editEventCategory">Categoria:</label>
+          <select id="editEventCategory">
+              <option value="Pessoal">Pessoal</option>
+              <option value="Trabalho">Trabalho</option>
+              <option value="Lembrete">Lembrete</option>
+          </select>
+
+          <label for="editEventDate">Data:</label>
+          <input type="date" id="editEventDate" required>
+
+          <label for="editEventTime">Hora:</label>
+          <input type="time" id="editEventTime" required>
+
+          <label for="editEventDescription">Descrição:</label>
+          <textarea id="editEventDescription"></textarea>
+
+          <button type="submit">Salvar Alterações</button>
+          <button type="button" id="cancelEditBtn">Cancelar</button>
+          <button type="button" id="deleteEventBtnInEdit">Excluir Evento</button> <!-- Mover o botão excluir para o modal de edição -->
+      </form>
+  </div>
+</div>
 </body>
 </html>
