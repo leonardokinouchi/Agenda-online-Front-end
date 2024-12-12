@@ -7,42 +7,20 @@
 }
 
 header {
-  font-family: "Ubuntu", serif;
   background-image: linear-gradient(to bottom right, rgb(255, 154, 198), rgb(115, 190, 231));
   color: rgb(255, 255, 255);
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
   padding: 1rem 2rem;
   position: relative; 
+  display: flex; /* Flexbox aplicado */
+  justify-content: center; /* Espaçamento entre logo, navegação e login */
+  align-items: center; /* Alinhamento vertical */
 }
 
 .logo{
-  text-align: center;
-}
-
-header nav {
-  position: absolute;
-  right: 2rem; 
-}
-
-header .logo {
-  font-family: "Ubuntu", serif;
   font-size: 1.5rem;
   font-weight: bold;
-}
-
-header nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1rem;
-}
-
-header nav a {
-  font-family: "Ubuntu", serif;
   color: white;
   text-decoration: none;
-  font-weight: bold;
 }
 
 body,
@@ -165,10 +143,19 @@ form.sign-in-form {
   font-size: 1.1rem;
   transition: 0.3s;
 }
+#Esqueceu{
+  text-decoration: none;
+}
+
+#Esqueceu:hover{
+  text-decoration: underline;
+
+}
 
 .social-icon:hover {
   color: #6C63FF;
   border-color: #6C63FF;
+  transform: translateY(-5px);
 }
 
 .btn {
@@ -230,12 +217,12 @@ form.sign-in-form {
 
 .left-panel {
   pointer-events: all;
-  padding: 3rem 17% 2rem 12%;
+  transform: translate(-80px, -80px);
 }
 
 .right-panel {
   pointer-events: none;
-  padding: 3rem 12% 2rem 17%;
+  transform: translate(-300px,-80px);
 }
 
 .panel .content {
@@ -341,20 +328,15 @@ form.sign-in-form {
 
   .right-panel {
     grid-row: 3 / 4;
+    transform: translate(-5px, -50px);
   }
 
   .left-panel {
     grid-row: 1 / 2;
-  }
-
-  .image {
-    width: 200px;
-    transition: transform 0.9s ease-in-out;
-    transition-delay: 0.6s;
+    transform: translate(5px, 50px);
   }
 
   .panel .content {
-    padding-right: 15%;
     transition: transform 0.9s ease-in-out;
     transition-delay: 0.8s;
   }

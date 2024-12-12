@@ -6,39 +6,32 @@
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styleLogin.css"/>
     <title>Sign in / Sign up Form</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
       integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" 
       crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=Parkinsans:wght@300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
   </head>
   <header>
-    <div class="logo">AGENDA</div>
-    <nav>
-      <ul>
-        <li><a href="LoginPage.html">Início</a></li>
-        <li><a href="index.html">Calendário</a></li>
-        <li><a href="#">Tarefas</a></li>
-        <li><a href="#">Configurações</a></li>
-      </ul>
-    </nav>
+    <a class="logo" href="index.html">Agenda</a>
   </header>
   <body>
     <div class="container">
       <div class="forms-container">
         <div class="signin-signup">
-          <form action="#" class="sign-in-form">
-            <h2 class="title">Sign in</h2>
-            <div class="input-field">
-              <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
-            </div>
-            <div class="input-field">
-              <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
-            </div>
-            <p> <a class="social-text" href="#">Forgot your password?</a></p>
-            <input type="submit" value="Login" class="btn solid" />
-            <p class="social-text">Or Sign in with social platforms</p>
+          <form action="/login" method="POST" class="sign-in-form">
+            <h2 class="title">Login</h2>
+              <div class="input-field">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Email" />
+              </div>
+              <div class="input-field">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Senha" />
+              </div>
+              <p> <a class="social-text" id="Esqueceu" href="#">Esqueceu sua senha?</a></p>
+              <input type="submit" value="Login" class="btn solid" />
+            <p class="social-text">Ou use sua conta das redes sociais</p>
             
             <div class="social-media">
               <a href="#" class="social-icon">
@@ -53,11 +46,11 @@
             </div>
 
           </form>
-          <form action="#" class="sign-up-form">
-            <h2 class="title">Sign up</h2>
+          <form action="/register" method="POST" class="sign-up-form">
+            <h2 class="title">Cadastre-se</h2>
             <div class="input-field">
               <i class="fas fa-user"></i>
-              <input type="text" placeholder="Username" />
+              <input type="text" placeholder="Nome" />
             </div>
             <div class="input-field">
               <i class="fas fa-envelope"></i>
@@ -65,10 +58,10 @@
             </div>
             <div class="input-field">
               <i class="fas fa-lock"></i>
-              <input type="password" placeholder="Password" />
+              <input type="password" placeholder="Senha" />
             </div>
-            <input type="submit" class="btn" value="Sign up" />
-            <p class="social-text">Or Sign up with social platforms</p>
+            <input type="submit" class="btn" value="Cadastrar" />
+            <p class="social-text">Ou use sua conta das redes sociais</p>
            
             <div class="social-media">
               <a href="#" class="social-icon">
@@ -89,29 +82,19 @@
       <div class="panels-container">
         <div class="panel left-panel">
           <div class="content">
-            <h3>New here ?</h3>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-              ex ratione. Aliquid!
-            </p>
+            <h3>Não tem uma conta?</h3>
             <button class="btn transparent" id="sign-up-btn">
-              Sign up
+              Cadastre-se
             </button>
           </div>
-          <img src="login.svg" class="image" alt="" />
         </div>
         <div class="panel right-panel">
           <div class="content">
-            <h3>One of us ?</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-              laboriosam ad deleniti.
-            </p>
+            <h3>Já tem uma conta?</h3>
             <button class="btn transparent" id="sign-in-btn">
-              Sign in
+              Login
             </button>
           </div>
-          <img src="reg.svg" class="image" alt="" />
         </div>
       </div>
     </div>

@@ -1,165 +1,211 @@
+/*CSS*/
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: "Ubuntu", serif;
-    background-color: #f8f9fa;
-    color: #333;
-  }
-  
-  header {
-    font-family: "Ubuntu", serif;
-    background-image: linear-gradient(to bottom right, rgb(255, 154, 198), rgb(115, 190, 231));
-    color: rgb(255, 255, 255);
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    padding: 1rem 2rem;
-    position: relative; 
-  }
-  
-  .logo{
-    text-align: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Ubuntu", serif;
+}
+
+header {
+  background-image: linear-gradient(to bottom right, rgb(255, 154, 198), rgb(115, 190, 231));
+  color: rgb(255, 255, 255);
+  padding: 1rem 2rem; 
+  width: 100%;
+  display: flex; /* Flexbox aplicado */
+  justify-content: space-between; /* Espaçamento entre logo, navegação e login */
+  align-items: center; /* Alinhamento vertical */
+}
+
+nav {
+  display: flex; 
+  align-items: center; 
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+nav a:hover, .login:hover{
+  background-color: #6C63FF;
+  color: white;
+}
+
+.logo{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.login{
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+a.icon {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  nav ul {
+    display: none;
+    position: absolute;
+    right: 0;
+    flex-direction: column;
+    padding: 1rem 1rem;
+    width: 10rem;
+    margin-top: 13.2rem;
   }
 
-  header nav {
-    position: absolute;
-    right: 2rem; 
-  }
-  
-  header .logo {
-    font-family: "Ubuntu", serif;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  header nav ul {
-    list-style: none;
+  nav ul.active {
     display: flex;
-    gap: 1rem;
+    position: absolute;
+    right: 0;
+    flex-direction: column;
+    background-color: #6C63FF80;
+    padding: 1rem 1rem;
+    width: 10rem;
+    margin-top: 13.2rem;
   }
-  
-  header nav a {
-    font-family: "Ubuntu", serif;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+
+  a.icon {
+    display: block;
   }
-  
+
+}
+
+@media screen and (max-width: 600px) {
   main {
     display: flex;
-    margin: 2rem;
-    gap: 1rem;
-  }
-  
-  .sidebar {
-    width: 20%;
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .sidebar h2 {
-    font-family: "Ubuntu", serif;
-    margin-bottom: 1rem;
-    text-align: center;
+    flex-direction: column;
+    flex-wrap: wrap;
   }
 
-  .sidebar.left ul li {
-    font-weight: 400;
-    font-family: "Ubuntu", serif;
-    border-radius: 8px; 
-    background-color: #f0f0f0; 
-    padding: 10px;
-    margin-bottom: 5px; 
-    list-style: none; 
-    text-align: center;
-  }
-  
-  .sidebar ul {
-    list-style: none;
-  }
-  
-  .calendar {
-    flex: 1;
-    background-color: #ffffff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .calendar h2 {
-    font-family: "Ubuntu", serif;
-    padding-top: 2em;
-    margin-bottom: 1rem;
-  }
-  
-  .week {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
+  .week, .month {
+    grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
     gap: 0.5rem;
   }
-  
+}
+
+main {
+  display: flex;
+  margin: 2rem;
+  gap: 1rem;
+}
+
+.sidebar {
+  width: 20%;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar h2 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.sidebar.left ul li {
+  font-weight: 400;
+  border-radius: 8px; 
+  background-color: #f0f0f0; 
+  padding: 10px;
+  margin-bottom: 5px; 
+  list-style: none; 
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.calendar {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.calendar h2 {
+  padding-top: 2em;
+  margin-bottom: 1rem;
+}
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
 #cronometro {
-    position: relative;
-    width: 200px;
-    height: 200px;
+  position: relative;
+  width: 200px;
+  height: 200px;
 }
 
 .circle {
-    transform: rotate(-90deg); 
+  transform: rotate(-90deg); 
 }
 
 .circle-background {
-    stroke: #e6e6e6;
+  stroke: #e6e6e6;
 }
 
 .circle-progress {
-    transition: stroke-dasharray 1s linear;
+  transition: stroke-dasharray 1s linear;
 }
 
 #time {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 24px;
-    font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+  font-weight: bold;
 }
 
-  .day {
-    background-color: #e9ecef;
-    padding: 1rem;
-    border-radius: 4px;
-    text-align: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .month {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.5rem;
-    margin-top: 1rem;
-  }
-  
-  .month .day {
-    font-family: "Ubuntu", serif;
-    font-weight: 700;
-    padding: 1rem;
-    background-color: #febddd7b;
-    border-radius: 4px;
-    text-align: center;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .week .day {
-    color: #ffffff;
-    font-family: "Ubuntu", serif;
-    font-weight: 700;
-    background-color: #72cef36e;
-  }
+.day {
+  background-color: #e9ecef;
+  padding: 1rem;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
 
+.month {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.month .day {
+  font-weight: 700;
+  padding: 1rem;
+  background-color: #febddd7b;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.week .day {
+  color: #ffffff;
+  font-family: "Ubuntu", serif;
+  font-weight: 700;
+  background-color: #72cef36e;
+}
