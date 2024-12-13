@@ -36,20 +36,6 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('detailsCategory').textContent = `Categoria: ${info.event.extendedProps.category || 'Não especificada'}`;
             document.getElementById('detailsDescription').textContent = `Descrição: ${info.event.extendedProps.description || 'Sem descrição'}`;
 
-             // Função de salvar evento editado
-             document.getElementById('saveEditBtn').onclick = function () {
-                info.event.setProp('title', document.getElementById('editEventTitle').value);
-                info.event.setExtendedProp('category', document.getElementById('editEventCategory').value);
-                info.event.setStart(document.getElementById('editEventDate').value + 'T' + document.getElementById('editEventTime').value);
-                info.event.setExtendedProp('description', document.getElementById('editEventDescription').value);
-
-                saveEvents();
-                updateUpcomingEvents();
-                updateMiniCalendar();
-
-                modal.classList.add('hidden');
-            };
-
             document.getElementById('deleteEventBtn').onclick = function () {
                 info.event.remove();
                 saveEvents();
