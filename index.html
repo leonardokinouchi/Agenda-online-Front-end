@@ -16,9 +16,9 @@
     <div class="nav-container">
         <nav>
             <ul class="nav-links">
-                <li><a href="#"><img src="calendar.png" alt="Calendário">Calendário</a></li>
-                <li><a href="#"><img src="analysis.png" alt="Análises">Análises</a></li>
-                <li><a href="#"><img src="note.png" alt="Notificações">Notificações</a></li>
+                <li><a href="index.html"><img src="calendar.png" alt="Calendário">Calendário</a></li>
+                <li><a href="https://www.google.com.br/?hl=pt-BR"><img src="analysis.png" alt="Análises">Análises</a></li>
+                <li><a href="https://www.google.com.br/?hl=pt-BR"><img src="note.png" alt="Notificações">Notificações</a></li>
             </ul>
         </nav>
     </div>
@@ -103,7 +103,7 @@
     </div>
   </div>
 
-  <!-- Modal para ver os detalhes do evento -->
+  <!-- Modal de Detalhes do Evento -->
   <div id="eventDetailsModal" class="modal hidden">
     <div class="modal-content">
       <span class="close">&times;</span>
@@ -112,41 +112,9 @@
       <p id="detailsTime">Hora: </p>
       <p id="detailsCategory">Categoria: </p>
       <p id="detailsDescription">Descrição: </p>
-      <button id="editEventBtn">Editar Evento</button>
       <button id="cancelEventBtn">Cancelar</button>
+      <button id="deleteEventBtn">Excluir Evento</button>
     </div>
-  </div>
-
-  <!-- Modal para editar evento (botão excluir dentro deste modal) -->
-<div id="eventEditModal" class="modal hidden">
-  <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Editar Evento</h2>
-      <form id="eventEditForm">
-          <label for="editEventTitle">Título:</label>
-          <input type="text" id="editEventTitle" required>
-
-          <label for="editEventCategory">Categoria:</label>
-          <select id="editEventCategory">
-              <option value="Pessoal">Pessoal</option>
-              <option value="Trabalho">Trabalho</option>
-              <option value="Lembrete">Lembrete</option>
-          </select>
-
-          <label for="editEventDate">Data:</label>
-          <input type="date" id="editEventDate" required>
-
-          <label for="editEventTime">Hora:</label>
-          <input type="time" id="editEventTime" required>
-
-          <label for="editEventDescription">Descrição:</label>
-          <textarea id="editEventDescription"></textarea>
-
-          <button type="submit">Salvar Alterações</button>
-          <button type="button" id="cancelEditBtn">Cancelar</button>
-          <button type="button" id="deleteEventBtnInEdit">Excluir Evento</button> <!-- Mover o botão excluir para o modal de edição -->
-      </form>
-  </div>
-</div>
+  </div>  
 </body>
 </html>
