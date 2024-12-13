@@ -473,7 +473,7 @@ main {
   transform: scale(1.05);
 }
 
-#editEventBtn {
+#deleteEventBtn {
   padding: 12px 24px;
   font-size: 16px;
   background-color: #8091aabd; /* Cor vermelha para cancelar */
@@ -483,12 +483,12 @@ main {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
-#editEventBtn:hover {
+#deleteEventBtn:hover {
   background-color: #8091aa51;
   transform: scale(1.05);
 }
 
-#editEventBtn:active {
+#deleteEventBtn:active {
   background-color: #8091aa51;
   transform: scale(1.02);
 }
