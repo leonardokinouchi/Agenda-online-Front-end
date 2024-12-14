@@ -1,0 +1,55 @@
+import openai
+from fastapi import FastAPI
+from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+
+# Instância principal da aplicação FastAPI
+app = FastAPI()
+
+# Configuração de CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permitir todas as origens
+    allow_credentials=True,
+    allow_methods=["*"],  # Permitir todos os métodos HTTP
+    allow_headers=["*"],  # Permitir todos os cabeçalhos
+)
+
+# Configuração da API Key (garanta que está correta e segura)
+openai.api_key = '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'
+
+# Modelo de entrada para o chatbot
+class Mensagem(BaseModel):
+    texto: str
+
+# Endpoint principal para teste
+@app.get("/")
+async def root():
+    return {"message": "API está funcionando!"}
+
+# Endpoint para o chatbot
+@app.post("/chat")
+async def chat(mensagem: Mensagem):
+    try:
+        # Verificação de entrada vazia
+        if not mensagem.texto.strip():
+            return {"erro": "A mensagem não pode estar vazia."}
+
+        # Chamada para a API OpenAI
+        resposta = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",  # Verifique se este modelo está correto
+            messages=[
+                {"role": "system", "content": "Você é um assistente útil."},
+                {"role": "user", "content": mensagem.texto}
+            ],
+            max_tokens=150,
+            temperature=0.7
+        )
+
+        # Retorna a resposta gerada
+        return {"resposta": resposta['choices'][0]['message']['content']}
+    except openai.error.OpenAIError as e:
+        return {"erro": f"Erro na API OpenAI: {str(e)}"}
+    except Exception as e:
+        return {"erro": f"Erro inesperado: {str(e)}"}
+
