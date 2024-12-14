@@ -1,0 +1,618 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", serif;
+    background-color: #8091aa51; /* Fundo claro */
+    color: #333; /* Texto padrão escuro */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    overflow-y: auto; /* Controla a rolagem da página */
+    scroll-behavior: smooth; /* Rolagem suave */
+    overflow: hidden;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    color: rgb(43, 42, 42);
+    width: 100%;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+
+}
+
+.nav-container {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1; /* Permite que a nav-container ocupe o espaço restante */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px; /* Espaço entre as opções de navegação */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: rgb(56, 56, 56);
+    font-size: 16px;
+    display: flex;
+    align-items: center; /* Alinha a imagem e o texto verticalmente */
+    transition: color 0.3s ease;
+}
+
+.nav-links li a img {
+    width: 20px; /* Tamanho do ícone */
+    height: 20px;
+    margin-right: 8px; /* Espaço entre a imagem e o texto */
+}
+
+.nav-links li a:hover {
+    color: #f4a261; /* Cor de destaque ao passar o mouse */
+}
+
+.profile-icon img {
+    width: 30px; /* Tamanho do ícone */
+    height: 30px;
+    border-radius: 50%;
+}
+
+main {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    margin: 0 auto; /* Centraliza o main horizontalmente */
+    padding-bottom: 80px; /* Espaço reservado para o input fixo */
+}
+
+/* Caixa de chat */
+.chat-box {
+    background-color: #353c47; /* Fundo da caixa de chat */
+    border-radius: 30px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    max-height: calc(100vh - 180px); /* Ajusta a altura máxima para evitar sobreposição */
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    gap: 10px;
+    display: flex;
+    flex-direction: column; /* Mensagens empilhadas */
+    overflow-y: auto; /* Habilita rolagem interna se necessário */
+}
+
+.chat-box::-webkit-scrollbar {
+    display: none;
+}
+
+.chat-box .message {
+    display: inline-block; /* Para ocupar apenas o espaço do texto */
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 30px;
+    word-wrap: break-word;
+    font-size: 16px;
+    max-width: calc(100% - 40px); /* Para evitar ultrapassar a borda do chat */
+}
+
+.chat-box .message.user {
+    background-color: #8f8f8f36; /* Fundo da mensagem do usuário */
+    color: #d8d8d8;
+    align-self: flex-end;
+    text-align: right;
+    width: fit-content; /* Ajusta automaticamente à largura do texto */
+    max-width: 500px; /* Define um limite de largura caso o texto seja longo */
+    padding: 10px 20px; /* Ajusta o preenchimento */
+}
+
+
+.chat-box .message.bot {
+    background-color: #8f8f8f36; /* Mensagem do bot */
+    color: #d8d8d8;
+}
+
+/* Input */
+.input-container {
+    position: fixed;
+    bottom: 3.3em; /* Fixa 20px acima da parte inferior da página */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%; /* Define a largura da caixa */
+    max-width: 600px; /* Limita a largura máxima */
+    display: flex; /* Exibe o input e o botão lado a lado */
+    align-items: center;
+    background-color: #ffffff; /* Fundo branco */
+    border: 1px solid #ddd; /* Borda leve */
+    border-radius: 30px; /* Bordas arredondadas */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15); /* Sombra mais evidente */
+    padding: 5px 10px;
+}
+
+#user-input {
+    width: 100%; /* O input ocupa todo o espaço restante */
+    padding: 12px;
+    font-size: 16px;
+    border: none; /* Remove a borda padrão */
+    border-radius: 30px; /* Combina com o container */
+    background-color: transparent; /* Fundo transparente para integrar ao container */
+    outline: none; /* Remove o contorno */
+    color: #333; /* Cor do texto */
+}
+#user-input::placeholder {
+    color: #aaa; /* Cor do texto placeholder */
+    font-size: 14px; /* Tamanho ligeiramente menor */
+}
+
+#user-input:focus {
+    border-color: #4a90e2; /* Cor de foco */
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+.send-button {
+    background-color: transparent; /* Fundo transparente para integrar ao container */
+    border: none; /* Remove a borda padrão */
+    width: 40px; /* Define um tamanho fixo */
+    height: 40px;
+    border-radius: 50%; /* Deixa o botão redondo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 10px; /* Espaço entre o botão e o input */
+}
+
+.send-button img {
+    width: 24px; /* Tamanho do ícone */
+    height: 24px;
+}
+
+.send-button:hover {
+    background-color: #e0e0e0; /* Fundo cinza claro ao passar o mouse */
+}
+.send-button.disabled {
+    filter: grayscale(100%) opacity(50%); /* Deixa o botão sem cor e opaco */
+    cursor: not-allowed; /* Cursor indicando indisponibilidade */
+}
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 75px; /* A sidebar começa abaixo da header */
+    left: 0;
+    width: 269px;
+    height: 100%; /* A altura da sidebar ocupa o restante da tela, subtraindo a altura da header */
+    background-color: #32313120;
+    color: #fff;
+    padding-top: 20px; /* Mantém o espaço interno da sidebar */
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+    border-radius: 10px;
+    background-color: #60606000;
+    text-decoration: none;
+    color: #000000;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    margin-right: 1.5em;
+}
+
+.sidebar ul li a:hover {
+    background-color: #6060609c; /* Cor de destaque ao passar o mouse */
+}
+
+.sidebar ul li a {
+    transition: transform 0.3s ease; /* Aplica a transição suave */
+}
+
+.sidebar ul li a:active {
+    transform: scale(0.9); /* Usa 'transform' em vez de 'scale' diretamente */
+}
+
+/* Ajuste o main para que ele não fique por trás da sidebar */
+main {
+    margin-left: 270px; /* Espaço para a sidebar */
+    padding: 20px;
+    width: calc(100% - 270px); /* Ajusta a largura para o conteúdo não ultrapassar */
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: 80px;
+}
+
+/* Estilo adicional para o chat-box e o input */
+.chat-box {
+    background-color: #353c47; /* Fundo da caixa de chat */
+    border-radius: 30px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    max-height: calc(100vh - 180px); /* Ajusta a altura máxima para evitar sobreposição */
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    gap: 10px;
+    display: flex;
+    flex-direction: column; /* Mensagens empilhadas */
+    overflow-y: auto; /* Habilita rolagem interna se necessário */
+}
+
+.input-container {
+    position: fixed;
+    bottom: 3.3em;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    padding: 5px 10px;
+}
+/* Título e ícone de busca */
+.sidebar-header {
+    margin-right: 1em;
+    display: flex;
+    align-items: center; /* Alinha verticalmente o título e o ícone */
+    margin-bottom: 7px; /* Espaço entre o título e a lista */
+}
+.sidebar-header2 {
+    margin-right: 1em;
+    display: flex;
+    align-items: center; /* Alinha verticalmente o título e o ícone */
+    margin-bottom: 3em; /* Espaço entre o título e a lista */
+}
+.sidebar-header2 h2{
+    font-size: 22px;
+    color: #000000;
+    margin-left: 10px; /* Espaçamento entre o título e o ícone */
+    font-size: 20px;
+}
+
+.sidebar-header h2 {
+    font-size: 22px;
+    color: #000000;
+    margin-left: 10px; /* Espaçamento entre o título e o ícone */
+    font-size: 20px;
+}
+
+.search-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.search-button img {
+    width: 20px;
+    height: 20px;
+}
+/* Lista rolável */
+.sidebar ul {
+    flex-grow: 1; /* Faz a lista ocupar o restante do espaço */
+    overflow-y: auto; /* Adiciona o scroll vertical */
+    padding: 10px;
+    margin: 0;
+    scrollbar-width: none;
+}
+.sidebar ul::-webkit-scrollbar {
+    display: none; /* Chrome, Safari e Edge */
+}
+.checkbox-container {
+    display: none; /* Esconde o contêiner inicialmente */
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+/* Exibir as checkboxes com estilo simples */
+input[type="checkbox"] {
+    margin-right: 10px; /* Espaço à direita da checkbox */
+    transform: scale(1.2); /* Aumenta o tamanho das checkboxes */
+}
+
+/* Estilo básico para a label */
+.checkbox-container label {
+    font-size: 16px; /* Tamanho da fonte */
+    cursor: pointer; /* Muda o cursor para o formato de mão */
+    display: inline-block;
+    line-height: 20px;
+    margin-bottom: 7px;
+}
+
+input[type="checkbox"] {
+    width: 20px; /* Tamanho da checkbox */
+    height: 20px;
+    appearance: none; /* Remove o estilo padrão */
+    background-color: #fff; /* Cor de fundo */
+    border: 1px solidrgb(73, 73, 73)0; /* Borda */
+    border-radius: 50%; /* Deixa redondo */
+    cursor: pointer;
+    outline: none;
+    display: inline-block;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #4a4c58af; /* Cor ao ser marcado */
+    border-color: #4a4c58; /* Cor da borda ao ser marcado */
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"%3E%3Cpath d="M20.285 6.748a1 1 0 0 1 0 1.414l-9.034 9.034a1 1 0 0 1-1.414 0L3.715 11.66a1 1 0 1 1 1.414-1.414L10 15.117l8.872-8.872a1 1 0 0 1 1.413.003z"/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+}
+#selected-items {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    max-height: 240px;
+}
+
+#selected-items h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    color: #000;
+}
+
+#selected-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+#selected-list li {
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.sidebar2 {
+    position: fixed;
+    top: 60px; /* A sidebar começa abaixo da header */
+    right: 0; /* Move a sidebar para a direita */
+    width: 269px;
+    height: calc(100% - 75px); /* Ajusta a altura da sidebar com base no topo */
+    background-color: #32313100;
+    color: #fff;
+    padding-top: 20px; /* Mantém o espaço interno da sidebar */
+    padding-right: 20px; /* Espaçamento interno no lado direito */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#selected-items {
+    border-radius: 30px;
+    max-width: 100%; /* Ajusta a largura conforme necessário */
+    border: 1px solid #ccc; /* Borda opcional para demarcar */
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
+    background-color: #f9f9f9; /* Fundo claro */
+    display: flex;
+    flex-direction: column; /* Organização vertical dos elementos */
+    gap: 10px; /* Espaçamento entre os elementos */
+}
+
+#selected-items h3 {
+    margin: 0; /* Remove margens padrão */
+    font-size: 1.2em;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    background-color: #f9f9f9; /* Mesma cor do fundo para continuidade */
+    z-index: 10; /* Garante que o título esteja acima da lista */
+    padding: 5px 0;
+}
+
+#restart-button {
+    display: flex; /* Torna o botão um contêiner flexível */
+    align-items: center; /* Alinha a imagem e o texto verticalmente */
+    gap: 8px; /* Espaçamento entre a imagem e o texto */
+    border: 1px solid #ccc; /* Bordas (opcional) */
+    border-radius: 30px; /* Bordas arredondadas (opcional) */
+    padding: 5px 10px; /* Espaçamento interno (opcional) */
+    background-color: #b4b4b4; /* Cor de fundo do botão */
+    cursor: pointer; /* Altera o cursor ao passar por cima */
+}
+#gerar-relatorio-button {
+    display: flex; /* Torna o botão um contêiner flexível */
+    align-items: center; /* Alinha a imagem e o texto verticalmente */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    gap: 8px; /* Espaçamento entre a imagem e o texto */
+    border: 1px solid #ccc; /* Bordas (opcional) */
+    border-radius: 30px; /* Bordas arredondadas (opcional) */
+    padding: 5px 10px; /* Espaçamento interno (opcional) */
+    background-color: #b4b4b4; /* Cor de fundo do botão */
+    cursor: pointer; /* Altera o cursor ao passar por cima */
+    transition: transform 0.3s ease; /* Aplica a transição suave */
+}
+#gerar-relatorio-button:active{
+    scale: 0.9;
+    background-color: #b4b4b49a; /* Cor de fundo do botão */
+}
+
+#gerar-relatorio-button img{
+    width: 20px; /* Define a largura da imagem */
+    height: 20px; /* Define a altura da imagem */
+}
+
+#restart-button img {
+    width: 20px; /* Define a largura da imagem */
+    height: 20px; /* Define a altura da imagem */
+}
+
+#restart-button:hover {
+    background-color: #e0e0e0; /* Cor de fundo ao passar o mouse (opcional) */
+}
+#selected-list {
+    flex: 1; /* Ocupa o espaço disponível no contêiner */
+    max-height: 200px; /* Altura fixa para a lista */
+    overflow-y: auto; /* Ativa a barra de rolagem vertical */
+    margin: 0; /* Remove margens padrão */
+    padding: 0; /* Remove preenchimento padrão */
+    list-style: none; /* Remove os marcadores de lista padrão */
+    position: relative; /* Necessário para posicionar os ícones absolutos */
+}
+
+#selected-list li {
+    position: relative; /* Necessário para posicionar os ícones antes do texto */
+    padding: 5px 5px 5px 25px; /* Espaço à esquerda para o ícone */
+    border-bottom: 1px solid #ddd; /* Linha divisória entre itens */
+}
+
+
+/* Ícone para cada item da lista */
+#selected-list li::before {
+    content: '';
+    position: absolute;
+    left: 5px; /* Espaço do lado esquerdo */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Garante centralização */
+    width: 12px; /* Largura do ícone */
+    height: 12px; /* Altura do ícone */
+    background-image: url('plus.png'); /* Caminho para o ícone */
+    background-size: cover; /* Garante que a imagem preencha o espaço */
+    background-repeat: no-repeat; /* Evita repetição do ícone */
+}
+.resultado {
+    margin: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    background-color: #f9f9f9;
+}
+
+.resultado h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.resultado ul {
+    list-style: disc;
+    padding-left: 20px;
+}
+
+.resultado ul li {
+    margin: 5px 0;
+    color: #555;
+}
+#resultado-medicamentos {
+    max-width: 100%; /* Ajusta o tamanho conforme necessário */
+    border: 1px solid #ccc; /* Borda opcional para demarcar */
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+    background-color: #f9f9f9; /* Fundo claro */
+    max-height: 240px;
+}
+
+#resultado-medicamentos h3 {
+    margin: 0 0 10px; /* Espaçamento inferior para o título */
+    font-size: 1.2em;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    background-color: #f9f9f9; /* Mesma cor do fundo para continuidade */
+    z-index: 10;
+    padding: 5px 0;
+}
+
+#medicamento-list {
+    max-height: 130px; /* Altura fixa para a lista */
+    overflow-y: auto; /* Ativa a barra de rolagem vertical */
+    margin: 0; /* Remove margens padrão */
+    padding: 0; /* Remove preenchimento padrão */
+    list-style: none; /* Remove os marcadores de lista padrão */
+}
+
+#medicamento-list li {
+    padding: 5px;
+    border-bottom: 1px solid #ddd; /* Linha divisória entre itens */
+}
+
+#medicamento-list li:last-child {
+    border-bottom: none; /* Remove a linha do último item */
+}
+/* Estilizar a barra de rolagem principal */
+#selected-list::-webkit-scrollbar {
+    width: 8px; /* Largura da barra vertical */
+    height: 8px; /* Altura da barra horizontal, se aplicável */
+}
+
+/* Cor e estilo do fundo da barra */
+#selected-list::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Cor do fundo */
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+/* Cor e estilo do "polegar" (a parte que desliza) */
+#selected-list::-webkit-scrollbar-thumb {
+    background: #a1a1a1; /* Cor do polegar */
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+/* Cor e estilo do polegar ao passar o mouse */
+#selected-list::-webkit-scrollbar-thumb:hover {
+    background: #808080; /* Cor ao passar o mouse */
+}
+
+/* Opcional: Ocultar barra de rolagem em navegadores que suportam o padrão */
+#selected-list {
+    scrollbar-width: thin; /* Reduz a largura da barra em navegadores compatíveis (Firefox) */
+    scrollbar-color: #a1a1a1 #f0f0f0; /* Cor do polegar e fundo no Firefox */
+}
+
+/* Estilizar a barra de rolagem principal */
+#medicamento-list::-webkit-scrollbar {
+    width: 8px; /* Largura da barra vertical */
+    height: 8px; /* Altura da barra horizontal, se aplicável */
+}
+
+/* Cor e estilo do fundo da barra */
+#medicamento-list::-webkit-scrollbar-track {
+    background: #f0f0f0; /* Cor do fundo */
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+/* Cor e estilo do "polegar" (a parte que desliza) */
+#medicamento-list::-webkit-scrollbar-thumb {
+    background: #a1a1a1; /* Cor do polegar */
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+/* Cor e estilo do polegar ao passar o mouse */
+#medicamento-list::-webkit-scrollbar-thumb:hover {
+    background: #808080; /* Cor ao passar o mouse */
+}
+
+/* Opcional: Ocultar barra de rolagem em navegadores que suportam o padrão */
+#medicamento-list {
+    scrollbar-width: thin; /* Reduz a largura da barra em navegadores compatíveis (Firefox) */
+    scrollbar-color: #a1a1a1 #f0f0f0; /* Cor do polegar e fundo no Firefox */
+}
+
+
+
+
