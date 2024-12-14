@@ -2,7 +2,7 @@
 const token = localStorage.getItem('token');
 if (!token) {
     alert('Você precisa estar logado para acessar esta página.');
-    window.location.href = 'LoginPage.html'; // Redireciona para login
+    window.location.href = '/paginas/LoginPage.html'; // Redireciona para login
 }
 
 //Botao de logout
