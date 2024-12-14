@@ -60,7 +60,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
           const data = await response.json();
           localStorage.setItem('token', data.token); // Armazena o token JWT no navegador
           alert('Login bem-sucedido!');
-          window.location.href = 'index.html'; // Redireciona para a página do calendário
+          window.location.href = '../index.html'; // Redireciona para a página do calendário
       } else {
           const error = await response.json();
           alert(error.error || 'Falha no login');
