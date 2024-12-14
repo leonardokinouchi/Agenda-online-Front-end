@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styleLogin.css"/>
+    <title>Sign in / Sign up Form</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+      integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" 
+      crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=Parkinsans:wght@300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  </head>
+  <header>
+    <a class="logo" href="">Agenda</a>
+  </header>
+  <body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+
+          <!--Formulario de Login-->
+          <form class="sign-in-form" id="loginForm">
+            <h2 class="title">Login</h2>
+              <div class="input-field">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username_login" placeholder="Username" />
+              </div>
+              <div class="input-field">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password_login" placeholder="Password" />
+              </div>
+              <p> <a class="social-text" id="Esqueceu" href="#">Esqueceu sua senha?</a></p>
+              <input type="submit" value="Login" class="btn solid" />
+            <p class="social-text">Ou use sua conta das redes sociais</p>
+            
+            <div class="social-media">
+              <a href="#" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </form>
+
+          <!--Formulario de resgistro-->
+          <form class="sign-up-form" id="registerForm">
+            <h2 class="title">Cadastre-se</h2>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" id="username" placeholder="Username" required/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="email"  placeholder="Email" required/>
+            </div>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="password" placeholder="Senha" required/>
+            </div>
+            <input type="submit" class="btn" value="Cadastrar" />
+            <p class="social-text">Ou use sua conta das redes sociais</p>
+           
+            <div class="social-media">
+              <a href="#" class="social-icon">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-google"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          
+          </form>
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>Não tem uma conta?</h3>
+            <button class="btn transparent" id="sign-up-btn">
+              Cadastre-se
+            </button>
+          </div>
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>Já tem uma conta?</h3>
+            <button class="btn transparent" id="sign-in-btn">
+              Login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="/scripts/appLogin.js"></script>
+  </body>
+</html>

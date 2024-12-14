@@ -1,3 +1,24 @@
+//Bloqueio de pagina para sem token
+const token = localStorage.getItem('token');
+if (!token) {
+    alert('Você precisa estar logado para acessar esta página.');
+    window.location.href = 'LoginPage.html'; // Redireciona para login
+}
+
+//Botao de logout
+document.getElementById('logoutButton').addEventListener('click', () => {
+    // Remove o token armazenado no localStorage
+    localStorage.removeItem('token');
+    
+    // Redireciona para a página de login
+    window.location.href = 'LoginPage.html';
+
+    // Opcional: Mostra uma mensagem de logout bem-sucedido
+    alert('Logout realizado com sucesso!');
+});
+
+
+//calendario joao
 document.addEventListener('DOMContentLoaded', function () {
     var calendarEl = document.getElementById('calendar');
     var upcomingEventsList = document.getElementById('upcomingEventsList');
