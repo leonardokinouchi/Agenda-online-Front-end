@@ -11,7 +11,7 @@ document.getElementById('logoutButton').addEventListener('click', () => {
     localStorage.removeItem('token');
     
     // Redireciona para a página de login
-    window.location.href = 'LoginPage.html';
+    window.location.href = '/paginas/LoginPage.html';
 
     // Opcional: Mostra uma mensagem de logout bem-sucedido
     alert('Logout realizado com sucesso!');
