@@ -7,7 +7,7 @@
 
 body {
   font-family: "Inter", serif;
-  background-color: #8091aa51;
+  background: linear-gradient(to right, #6bffe1, #cffd7a67); /* da esquerda para a direita, do amarelo para o roxo */
   color: #333;
 }
 
@@ -16,8 +16,9 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #ffffff;
+  background-color: #ffffff4f;
   color: rgb(43, 42, 42);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.09); /* Sombra leve */
 }
 
 .nav-container {
@@ -99,6 +100,7 @@ main {
   padding: 1rem;
   border-radius: 30px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc; /* Bordas (opcional) */
 }
 
 /* Flexbox na barra de ferramentas */
@@ -284,7 +286,6 @@ main {
   table-layout: fixed;
   background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #miniCalendar th {
@@ -583,7 +584,7 @@ main {
   padding: 1rem;
   border-radius: 30px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1em;
+  border: 1px solid #ccc; /* Bordas (opcional) */  margin-bottom: 1em;
 }
 #eventFilters label {
   display: block;

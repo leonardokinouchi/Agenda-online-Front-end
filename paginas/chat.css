@@ -7,7 +7,7 @@
 
 body {
     font-family: "Inter", serif;
-    background-color: #8091aa51; /* Fundo claro */
+    background: linear-gradient(to right, #6bffe1, #cffd7a67); /* da esquerda para a direita, do amarelo para o roxo */
     color: #333; /* Texto padrão escuro */
     display: flex;
     flex-direction: column;
@@ -25,10 +25,10 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: #ffffff4f;
     color: rgb(43, 42, 42);
     width: 100%;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Sombra leve */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.09); /* Sombra leve */
 
 }
 
@@ -107,8 +107,8 @@ main {
 }
 
 .chat-box .message.user {
-    background-color: #8f8f8f36; /* Fundo da mensagem do usuário */
-    color: #d8d8d8;
+    background-color: #00000051; /* Fundo da mensagem do usuário */
+    color: #ffffff;
     align-self: flex-end;
     text-align: right;
     width: fit-content; /* Ajusta automaticamente à largura do texto */
@@ -118,8 +118,8 @@ main {
 
 
 .chat-box .message.bot {
-    background-color: #8f8f8f36; /* Mensagem do bot */
-    color: #d8d8d8;
+    background-color: #00000051; /* Mensagem do bot */
+    color: #ffffff;
 }
 
 /* Input */
@@ -187,16 +187,18 @@ main {
 /* Sidebar */
 .sidebar {
     position: fixed;
-    top: 75px; /* A sidebar começa abaixo da header */
     left: 0;
     width: 269px;
-    height: 100%; /* A altura da sidebar ocupa o restante da tela, subtraindo a altura da header */
-    background-color: #32313120;
-    color: #fff;
+    height: 85%; /* A altura da sidebar ocupa o restante da tela, subtraindo a altura da header */
+    background-color: #ffffff76;
     padding-top: 20px; /* Mantém o espaço interno da sidebar */
     padding-left: 20px;
     display: flex;
     flex-direction: column;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    margin-top: 5.9em;
 }
 
 .sidebar ul {
@@ -209,10 +211,10 @@ main {
 }
 
 .sidebar ul li a {
-    border-radius: 10px;
-    background-color: #60606000;
+    border-radius: 23px;
+    background-color: #353c4749;
     text-decoration: none;
-    color: #000000;
+    color: #ffffff;
     font-size: 16px;
     display: block;
     padding: 10px;
@@ -244,7 +246,7 @@ main {
 
 /* Estilo adicional para o chat-box e o input */
 .chat-box {
-    background-color: #353c47; /* Fundo da caixa de chat */
+    background-color: #ffffff97; /* Fundo da caixa de chat */
     border-radius: 30px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra leve */
     max-height: calc(100vh - 180px); /* Ajusta a altura máxima para evitar sobreposição */
@@ -345,7 +347,7 @@ input[type="checkbox"] {
     width: 20px; /* Tamanho da checkbox */
     height: 20px;
     appearance: none; /* Remove o estilo padrão */
-    background-color: #fff; /* Cor de fundo */
+    background-color: #0000002d; /* Cor de fundo */
     border: 1px solidrgb(73, 73, 73)0; /* Borda */
     border-radius: 50%; /* Deixa redondo */
     cursor: pointer;
@@ -354,8 +356,8 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-    background-color: #4a4c58af; /* Cor ao ser marcado */
-    border-color: #4a4c58; /* Cor da borda ao ser marcado */
+    background-color: #00000060; /* Cor ao ser marcado */
+    border-color: #ffffffb2; /* Cor da borda ao ser marcado */
     background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"%3E%3Cpath d="M20.285 6.748a1 1 0 0 1 0 1.414l-9.034 9.034a1 1 0 0 1-1.414 0L3.715 11.66a1 1 0 1 1 1.414-1.414L10 15.117l8.872-8.872a1 1 0 0 1 1.413.003z"/%3E%3C/svg%3E');
     background-repeat: no-repeat;
     background-position: center;
@@ -433,8 +435,9 @@ input[type="checkbox"]:checked {
     border: 1px solid #ccc; /* Bordas (opcional) */
     border-radius: 30px; /* Bordas arredondadas (opcional) */
     padding: 5px 10px; /* Espaçamento interno (opcional) */
-    background-color: #b4b4b4; /* Cor de fundo do botão */
+    background-color: #ffffff; /* Cor de fundo do botão */
     cursor: pointer; /* Altera o cursor ao passar por cima */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
 }
 #gerar-relatorio-button {
     display: flex; /* Torna o botão um contêiner flexível */
@@ -444,15 +447,18 @@ input[type="checkbox"]:checked {
     border: 1px solid #ccc; /* Bordas (opcional) */
     border-radius: 30px; /* Bordas arredondadas (opcional) */
     padding: 5px 10px; /* Espaçamento interno (opcional) */
-    background-color: #b4b4b4; /* Cor de fundo do botão */
+    background-color: #ffffff5c; /* Cor de fundo do botão */
     cursor: pointer; /* Altera o cursor ao passar por cima */
     transition: transform 0.3s ease; /* Aplica a transição suave */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Sombra leve */
 }
 #gerar-relatorio-button:active{
     scale: 0.9;
-    background-color: #b4b4b49a; /* Cor de fundo do botão */
+    background-color: #ffffff97; /* Cor de fundo do botão */
 }
-
+#gerar-relatorio-button:hover{
+    background-color: #ffffff97; /* Cor de fundo do botão */
+}
 #gerar-relatorio-button img{
     width: 20px; /* Define a largura da imagem */
     height: 20px; /* Define a altura da imagem */
@@ -464,7 +470,7 @@ input[type="checkbox"]:checked {
 }
 
 #restart-button:hover {
-    background-color: #e0e0e0; /* Cor de fundo ao passar o mouse (opcional) */
+    background-color: #aeaeae2e; /* Cor de fundo ao passar o mouse (opcional) */
 }
 #selected-list {
     flex: 1; /* Ocupa o espaço disponível no contêiner */
