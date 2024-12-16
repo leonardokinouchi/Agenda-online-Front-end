@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=Parkinsans:wght@300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+  <title>Calendário</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="calendario.js" defer></script>
+</head>
+<body>
+  <header>
+    <div class="nav-container">
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html"><img src="calendar.png" alt="Calendário">Calendário</a></li>
+                <li><a href="chat.html"><img src="analysis.png" alt="Análises">ChatBot</a></li>
+                <li><a href="https://www.google.com.br/?hl=pt-BR"><img src="note.png" alt="Notificações">Notificações</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="profile-icon">
+        <a href="#"><img src="user.png" alt="Perfil"></a>
+    </div>
+</header>
+  <main>
+      <section class="calendar">
+        <div id="calendar"></div>
+      </section>
+      <aside class="sidebar right">
+        <div class="box">
+          <div id="miniCalendarContainer">
+            <h3>Calendário</h3>
+            <div id="miniCalendarHeader"></div>
+            <table id="miniCalendar">
+              <tbody></tbody>
+            </table>
+          </div>
+          
+          <button id="openModalBtn">Novo Evento</button>
+        </div>    
+    <div class="sidebar2">
+      <div class="box">
+        <h2>Filtrar Eventos</h2>
+        <div id="eventFilters">
+          <label>
+            <input type="checkbox" id="filterPessoal" checked class="filter-checkbox pessoal">
+            Pessoal
+          </label>
+          <label>
+            <input type="checkbox" id="filterTrabalho" checked class="filter-checkbox trabalho">
+            Trabalho
+          </label>
+          <label>
+            <input type="checkbox" id="filterLembrete" checked class="filter-checkbox lembrete">
+            Lembrete
+          </label>
+          <label>
+            <input type="checkbox" id="filterMedicamento" checked class="filter-checkbox medicamento"/>
+            Medicamento
+          </label>
+        </div>
+        
+        
+        
+      </div>
+      <div class="sidebar3 box">
+        <h2>Próximos Eventos</h2>
+        <ul id="upcomingEventsList">
+        </aside>
+  </main>
+        <!-- Lista dinâmica de eventos será gerada aqui -->
+      </ul>
+    </div>
+  </div>
+<!-- Modal para adicionar eventos -->
+<div id="eventModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Adicionar Evento</h2>
+    <form id="eventForm">
+      <label for="eventTitle">Título:</label>
+      <input type="text" id="eventTitle" placeholder="Título do evento" required>
+
+      <label for="eventCategory">Categoria:</label>
+      <select id="eventCategory">
+        <option value="Pessoal">Pessoal</option>
+        <option value="Trabalho">Trabalho</option>
+        <option value="Lembrete">Lembrete</option>
+        <option value="Medicamento">Medicamento</option>
+      </select>
+
+      <label for="eventDate">Data:</label>
+      <input type="date" id="eventDate" required>
+
+      <label for="eventStartTime">Hora de Início:</label>
+      <input type="time" id="eventStartTime" required>
+
+      <label for="eventEndTime">Hora de Término:</label>
+      <input type="time" id="eventEndTime" required>
+
+      <label for="eventDescription">Descrição:</label>
+      <textarea id="eventDescription" placeholder="Adicione uma descrição"></textarea>
+
+      <button type="submit">Salvar</button>
+      <button type="button" id="cancelBtn">Cancelar</button>
+    </form>
+  </div>
+</div>
+
+  <!-- Modal de Detalhes do Evento -->
+<div id="eventDetailsModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2 id="detailsTitle">Título do Evento</h2>
+    <p id="detailsDate">Data: </p>
+    <p id="detailsTime">Hora: </p>
+    <p id="detailsDuration">Duração: </p> <!-- Novo campo para a duração -->
+    <p id="detailsCategory">Categoria: </p>
+    <p id="detailsDescription">Descrição: </p>
+    <button id="cancelEventBtn">Cancelar</button>
+    <button id="deleteEventBtn">Excluir Evento</button>
+  </div>
+</div>  
+</body>
+</html>
