@@ -6,12 +6,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inter:wght@100..900&family=Parkinsans:wght@300..800&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
   <title>Agenda</title>
   <link rel="stylesheet" href="style.css">
-  <script src="/scripts/calendario.js" defer></script>
 </head>
 <body>
+
   <header>
     <div class="nav-container">
         <nav>
@@ -27,96 +26,27 @@
     <div class="profile-icon">
         <a href="#"><img src="/assets/user.png" alt="Perfil"></a>
     </div>
-</header>
-  <main>
-      <section class="calendar">
-        <div id="calendar"></div>
-      </section>
-      <aside class="sidebar right">
-        <div class="box">
-          <div id="miniCalendarContainer">
-            <h3>Calendário</h3>
-            <div id="miniCalendarHeader"></div>
-            <table id="miniCalendar">
-              <tbody></tbody>
-            </table>
-          </div>
-          
-          <button id="openModalBtn">Novo Evento</button>
-        </div>    
-    <div class="sidebar2">
-      <div class="box">
-        <h2>Filtrar Eventos</h2>
-        <div id="eventFilters">
-          <label>
-            <input type="checkbox" id="filterPessoal" checked class="filter-checkbox pessoal">
-            Pessoal
-          </label>
-          <label>
-            <input type="checkbox" id="filterTrabalho" checked class="filter-checkbox trabalho">
-            Trabalho
-          </label>
-          <label>
-            <input type="checkbox" id="filterLembrete" checked class="filter-checkbox lembrete">
-            Lembrete
-          </label>
-        </div>
-        
-        
-        
-      </div>
-      <div class="sidebar3 box">
-        <h2>Próximos Eventos</h2>
-        <ul id="upcomingEventsList">
-        </aside>
-  </main>
-        <!-- Lista dinâmica de eventos será gerada aqui -->
-      </ul>
-    </div>
-  </div>
-  <!-- Modal para adicionar eventos -->
-  <div id="eventModal" class="modal hidden">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2>Adicionar Evento</h2>
-      <form id="eventForm">
-        <label for="eventTitle">Título:</label>
-        <input type="text" id="eventTitle" placeholder="Título do evento" required>
-        
-        <label for="eventCategory">Categoria:</label>
-        <select id="eventCategory">
-          <option value="Pessoal">Pessoal</option>
-          <option value="Trabalho">Trabalho</option>
-          <option value="Lembrete">Lembrete</option>
-        </select>
-        
-        <label for="eventDate">Data:</label>
-        <input type="date" id="eventDate" required>
-        
-        <label for="eventTime">Hora:</label>
-        <input type="time" id="eventTime" required>
-        
-        <label for="eventDescription">Descrição:</label>
-        <textarea id="eventDescription" placeholder="Adicione uma descrição"></textarea>
-        
-        <button type="submit">Salvar</button>
-        <button type="button" id="cancelBtn">Cancelar</button>
-      </form>
-    </div>
-  </div>
+  </header>
 
-  <!-- Modal de Detalhes do Evento -->
-  <div id="eventDetailsModal" class="modal hidden">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2 id="detailsTitle">Título do Evento</h2>
-      <p id="detailsDate">Data: </p>
-      <p id="detailsTime">Hora: </p>
-      <p id="detailsCategory">Categoria: </p>
-      <p id="detailsDescription">Descrição: </p>
-      <button id="cancelEventBtn">Cancelar</button>
-      <button id="deleteEventBtn">Excluir Evento</button>
-    </div>
-  </div>  
+
+  <main>
+
+    <h1>Calendário de Tarefas</h1>
+    <div id="calendar"></div>
+
+    <h2>Adicionar Nova Tarefa</h2>
+    <form id="taskForm">
+        <input type="text" id="title" placeholder="Título" required>
+        <input type="datetime-local" id="dueDate" required>
+        <textarea id="description" placeholder="Descrição"></textarea>
+        <button type="submit">Criar Tarefa</button>
+    </form>
+
+  </main>
+    
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script src="/scripts/calendario.js"></script>
+
 </body>
+
 </html>

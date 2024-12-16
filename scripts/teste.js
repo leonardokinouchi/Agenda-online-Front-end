@@ -1,7 +1,7 @@
 const server_url = "https://agenda-online-back-end.vercel.app"
-const token = localStorage.getItem('token');
 
 //Bloqueio de pagina para sem token
+const token = localStorage.getItem('token');
 if (!token) {
     alert('Você precisa estar logado para acessar esta página.');
     window.location.href = '/paginas/LoginPage.html'; // Redireciona para login
@@ -19,28 +19,29 @@ document.getElementById('logoutButton').addEventListener('click', () => {
     alert('Logout realizado com sucesso!');
 });
 
-//Calendario
 document.addEventListener('DOMContentLoaded', async function () {
+    const token = localStorage.getItem('token'); // Pega o token JWT
     const calendarEl = document.getElementById('calendar');
-    const form = document.getElementById('taskForm');
 
-    // Função para buscar tarefas do backend
+    // Carregar tarefas do backend
     const fetchTasks = async () => {
         try {
             const response = await fetch(`${server_url}/api/tasks`, {
+                method: 'GET',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!response.ok) throw new Error('Erro ao buscar tarefas');
             const tasks = await response.json();
 
+            // Formatar tarefas para o FullCalendar
             return tasks.map(task => ({
-            id: task._id,                 // ID da tarefa
-            title: task.title,            // Apenas o título será mostrado no calendário
-            start: task.dueDate,          // Data e hora de início
-            extendedProps: {              // Detalhes adicionais acessíveis no clique
-                description: task.description || '',
-                completed: task.completed || false
-            }
+                id: task._id,
+                title: task.title,
+                start: task.dueDate,
+                extendedProps: {
+                    description: task.description || '',
+                    completed: task.completed || false
+                }
             }));
         } catch (error) {
             console.error('Erro ao carregar tarefas:', error);
@@ -49,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     };
 
-    // Função para criar nova tarefa
+    // Criar uma nova tarefa no backend
     const createTask = async (task) => {
         try {
             const response = await fetch(`${server_url}/api/tasks`, {
@@ -68,10 +69,10 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     };
 
-    // Função para deletar tarefa
+    // Deletar tarefa do backend
     const deleteTask = async (taskId) => {
         try {
-            const response = await fetch(`${server_url}/api/tasks/${taskId}`, {
+            const response = await fetch(`http://localhost:5000/api/tasks/${taskId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -82,63 +83,52 @@ document.addEventListener('DOMContentLoaded', async function () {
         }
     };
 
-    // Configuração do FullCalendar
+    // Inicializar o FullCalendar
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        height: 'auto',
-        timeZone: 'America/Sao_Paulo', // Define o fuso horário do calendário
-        events: fetchTasks, // Busca as tarefas do backend
-        eventTimeFormat: { // Formato de horário exibido
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: false // Formato 24 horas
-        },
-        eventClick: async (info) => {
-            const { id, title, extendedProps, start } = info.event;
+        locale: 'pt',
+        editable: true,
+        events: await fetchTasks(), // Carregar eventos do backend
 
-            const formattedDate = new Date(start).toLocaleString('pt-BR', {
-                timeZone: 'UTC',
-                hour12: false,
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-            });
-
-            // Exibir informações da tarefa
-            const taskDetails = `Tarefa: ${title}\nData: ${formattedDate}\nDescrição: ${extendedProps.description}`;
-            if (confirm(`${taskDetails}\n\nDeseja deletar esta tarefa?`)) {
-                await deleteTask(id); // Deletar tarefa no backend
-                info.event.remove(); // Remover do calendário
-                alert('Tarefa deletada com sucesso!');
+        eventClick: async function (info) {
+            if (confirm('Deseja deletar esta tarefa?')) {
+                await deleteTask(info.event.id);
+                info.event.remove();
+                alert('Tarefa deletada com sucesso.');
             }
         }
     });
-    
 
-    calendar.render();
-
-    // Manipular o envio do formulário
-    form.addEventListener('submit', async (e) => {
+    // Adicionar evento
+    document.getElementById('eventForm').addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        const title = document.getElementById('title').value;
-        const dueDate = document.getElementById('dueDate').value;
-        const description = document.getElementById('description').value;
+        const title = document.getElementById('eventTitle').value;
+        const date = document.getElementById('eventDate').value;
+        const time = document.getElementById('eventTime').value;
+        const description = document.getElementById('eventDescription').value;
 
-        const newTask = await createTask({ title, dueDate, description });
+        const dueDate = `${date}T${time}:00`;
+
+        const newTask = await createTask({
+            title,
+            dueDate,
+            description
+        });
 
         if (newTask) {
             calendar.addEvent({
                 id: newTask._id,
                 title: newTask.title,
                 start: newTask.dueDate,
-                extendedProps: { description: newTask.description }
+                extendedProps: {
+                    description: newTask.description || ''
+                }
             });
-            alert('Tarefa criada com sucesso!');
-            calendar.refetchEvents();
-            form.reset();
+            alert('Tarefa criada com sucesso.');
+            document.getElementById('eventForm').reset();
         }
     });
+
+    calendar.render();
 });
