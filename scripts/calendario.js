@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         eventDrop: function (info) {
             saveEvents();
             updateUpcomingEvents();
-            updateMiniCalendar();  // Atualizar o mini calendário
+            updateMiniCalendar(); // Atualizar o mini calendário
         },
         buttonText: {
             today: 'Hoje',
@@ -29,21 +29,66 @@ document.addEventListener('DOMContentLoaded', function () {
         eventClick: function (info) {
             const modal = document.getElementById('eventDetailsModal');
             modal.classList.remove('hidden');
-
+        
+            // Exibindo o título do evento
             document.getElementById('detailsTitle').textContent = info.event.title;
-            document.getElementById('detailsDate').textContent = `Data: ${info.event.start.toLocaleDateString()}`;
-            document.getElementById('detailsTime').textContent = `Hora: ${info.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        
+            // Exibindo data e hora de início
+            const startDate = info.event.start;
+            document.getElementById('detailsDate').textContent = `Data Início: ${startDate.toLocaleDateString()}`;
+            document.getElementById('detailsTime').textContent = `Hora Início: ${startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+        
+            // Verificando a data de término
+            const endDate = info.event.end;
+        
+            if (endDate) {
+                // Evento com data de término especificada
+                document.getElementById('detailsEndDate').textContent = `Data Término: ${endDate.toLocaleDateString()}`;
+                document.getElementById('detailsEndTime').textContent = `Hora Término: ${endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+            } else {
+                // Evento sem data de término (geralmente eventos de dia inteiro ou de um único dia)
+                document.getElementById('detailsEndDate').textContent = 'Data Término: Não especificada';
+                document.getElementById('detailsEndTime').textContent = 'Hora Término: Não especificada';
+            }
+        
+            // Cálculo e exibição da duração do evento
+            if (startDate && endDate) {
+                const durationInMs = endDate - startDate; // Duração em milissegundos
+                if (durationInMs > 0) {
+                    const durationInMinutes = Math.floor(durationInMs / (1000 * 60)); // Converte para minutos
+        
+                    const hours = Math.floor(durationInMinutes / 60);
+                    const minutes = durationInMinutes % 60;
+        
+                    const formattedDuration = hours > 0
+                        ? `${hours}h ${minutes}min`
+                        : `${minutes}min`;
+        
+                    document.getElementById('detailsDuration').textContent = `Duração: ${formattedDuration}`;
+                } else {
+                    document.getElementById('detailsDuration').textContent = 'Duração inválida: A hora de término deve ser posterior à hora de início.';
+                    console.error('Erro: A hora de término deve ser posterior à hora de início.');
+                }
+            } else if (startDate && !endDate) {
+                document.getElementById('detailsDuration').textContent = 'Duração: Não especificada (sem data de término)';
+            } else {
+                document.getElementById('detailsDuration').textContent = 'Duração: Não especificada';
+            }
+        
+            // Exibindo a categoria e descrição do evento
             document.getElementById('detailsCategory').textContent = `Categoria: ${info.event.extendedProps.category || 'Não especificada'}`;
             document.getElementById('detailsDescription').textContent = `Descrição: ${info.event.extendedProps.description || 'Sem descrição'}`;
-
+        
+            // Ação para excluir o evento
             document.getElementById('deleteEventBtn').onclick = function () {
-                info.event.remove();
-                saveEvents();
-                updateUpcomingEvents();
-                updateMiniCalendar();  // Atualizar o mini calendário
-                modal.classList.add('hidden');
+                info.event.remove(); // Remover o evento
+                saveEvents();         // Atualizar os eventos salvos
+                updateUpcomingEvents(); // Atualizar eventos futuros
+                updateMiniCalendar(); // Atualizar mini calendário
+                modal.classList.add('hidden'); // Fechar o modal
             };
-
+        
+            // Ação para cancelar e fechar o modal
             document.getElementById('cancelEventBtn').onclick = function () {
                 modal.classList.add('hidden');
             };
@@ -77,16 +122,17 @@ document.addEventListener('DOMContentLoaded', function () {
         const isPessoalChecked = document.getElementById('filterPessoal').checked;
         const isTrabalhoChecked = document.getElementById('filterTrabalho').checked;
         const isLembreteChecked = document.getElementById('filterLembrete').checked;
+        const isMedicamentoChecked = document.getElementById('filterMedicamento').checked;
 
         return calendar.getEvents().filter(event => {
             const category = event.extendedProps.category;
             return (category === 'Pessoal' && isPessoalChecked) ||
                    (category === 'Trabalho' && isTrabalhoChecked) ||
-                   (category === 'Lembrete' && isLembreteChecked);
+                   (category === 'Lembrete' && isLembreteChecked) ||
+                   (category === 'Medicamento' && isMedicamentoChecked);
         });
     };
 
-    // Atualiza a lista de eventos futuros na tela
     const updateUpcomingEvents = () => {
         upcomingEventsList.innerHTML = '';
         const now = new Date();
@@ -148,33 +194,46 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('eventModal').classList.add('hidden');
     });
 
-    // Função para adicionar evento ao calendário
-    document.getElementById('eventForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        const title = document.getElementById('eventTitle').value;
-        const category = document.getElementById('eventCategory').value;
-        const date = document.getElementById('eventDate').value;
-        const time = document.getElementById('eventTime').value;
-        const description = document.getElementById('eventDescription').value;
+// Função para adicionar evento ao calendário
+document.getElementById('eventForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-        const eventDate = new Date(`${date}T${time}`);
-        
-        calendar.addEvent({
-            title: title,
-            start: eventDate,
-            extendedProps: {
-                category: category,
-                description: description
-            }
-        });
+    const title = document.getElementById('eventTitle').value;
+    const category = document.getElementById('eventCategory').value;
+    const date = document.getElementById('eventDate').value;
+    const startTime = document.getElementById('eventStartTime').value;
+    const endTime = document.getElementById('eventEndTime').value;
+    const description = document.getElementById('eventDescription').value;
 
-        saveEvents();
-        updateUpcomingEvents();
-        updateMiniCalendar();
-        
-        // Fechar o modal
-        document.getElementById('eventModal').classList.add('hidden');
+    const eventDateStart = new Date(`${date}T${startTime}`);
+    const eventDateEnd = new Date(`${date}T${endTime}`);
+
+    // Verifica se o horário de término é posterior ao de início
+    if (eventDateEnd <= eventDateStart) {
+        alert("A hora de término deve ser posterior à hora de início.");
+        return;
+    }
+
+    // Adicionar evento no calendário
+    calendar.addEvent({
+        title: title,
+        start: eventDateStart,
+        end: eventDateEnd,
+        extendedProps: {
+            category: category,
+            description: description
+        }
     });
+
+    saveEvents();
+    updateUpcomingEvents();
+    updateMiniCalendar();
+
+    // Fechar o modal
+    document.getElementById('eventModal').classList.add('hidden');
+});
+
+
 
     // Mini Calendário
     const miniCalendarEl = document.querySelector('#miniCalendar tbody');
@@ -197,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
         'Pessoal': '#ff5722',
         'Trabalho': '#007bff',
         'Lembrete': '#4caf50',
-        'Sem categoria': '#888'
+        'Medicamento': '#888'
     };
 
     const miniCalendarHeader = document.querySelector('#miniCalendarHeader');
@@ -316,4 +375,5 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('filterPessoal').addEventListener('change', updateUpcomingEvents);
     document.getElementById('filterTrabalho').addEventListener('change', updateUpcomingEvents);
     document.getElementById('filterLembrete').addEventListener('change', updateUpcomingEvents);
+    document.getElementById('filterMedicamento').addEventListener('change', updateUpcomingEvents);
 });

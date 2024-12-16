@@ -513,122 +513,316 @@ function gerarRelatorioPDF() {
     const selectedListItems = document.querySelectorAll('#selected-list li');
     const medicamentoListItems = document.querySelectorAll('#medicamento-list li');
 
-    // Coletar as doenças selecionadas
-    const selectedDiseases = Array.from(document.querySelectorAll("input[type='checkbox']:checked"))
-        .map(checkbox => checkbox.id.replace("-", "_"));
+    const descricaoDoencas = {
+        hipertensao: "Condição crônica caracterizada por pressão arterial elevada, aumentando o risco de doenças cardíacas e AVC.",
+        arritmia: "Distúrbio que afeta a frequência ou o ritmo dos batimentos cardíacos.",
+        infarto: "Dano ao músculo cardíaco causado pela interrupção do fluxo sanguíneo.",
+        insuficiencia_cardiaca: "Incapacidade do coração de bombear sangue adequadamente.",
+        doenca_coronaria: "Doença causada pelo estreitamento ou bloqueio das artérias coronárias.",
+        diabetes: "Doença metabólica caracterizada por altos níveis de glicose no sangue.",
+        obesidade: "Condição caracterizada pelo excesso de peso corporal que pode levar a várias complicações de saúde.",
+        dislipidemia: "Distúrbio dos níveis de lipídios no sangue, aumentando o risco de doenças cardiovasculares.",
+        hipertireoidismo: "Excesso de produção de hormônios pela glândula tireoide, acelerando o metabolismo.",
+        gota: "Condição caracterizada pelo acúmulo de ácido úrico nas articulações, causando dor e inflamação.",
+        asma: "Doença respiratória crônica que causa dificuldade para respirar devido à inflamação das vias aéreas.",
+        bronquite: "Inflamação dos brônquios, frequentemente associada a tosse e produção de muco.",
+        enfisema: "Condição pulmonar que causa destruição dos alvéolos e dificuldade para respirar.",
+        fibrose_pulmonar: "Doença que causa cicatrização e rigidez dos pulmões, dificultando a respiração.",
+        pneumonia: "Infecção que inflama os sacos de ar nos pulmões, podendo ser causada por bactérias ou vírus.",
+        insuficiencia_renal: "Condição em que os rins perdem a capacidade de filtrar os resíduos do sangue.",
+        litis_renal: "Formação de cálculos renais, que podem causar dor intensa e problemas urinários.",
+        glomerulonefrite: "Inflamação nos glomérulos dos rins, prejudicando sua função de filtração.",
+        nefropatia: "Doença que afeta os rins, frequentemente associada ao diabetes ou hipertensão.",
+        infeccao_urinaria: "Infecção no sistema urinário, frequentemente caracterizada por dor ao urinar.",
+        cirrose: "Cicatrização crônica do fígado, geralmente causada por abuso de álcool ou hepatites virais.",
+        hepatite: "Inflamação do fígado, frequentemente causada por vírus ou toxinas.",
+        esteatose_hepatica: "Acúmulo de gordura no fígado, frequentemente associado a obesidade e álcool.",
+        colestase: "Redução ou interrupção do fluxo de bile, causando problemas digestivos e icterícia.",
+        insuficiencia_hepatica: "Declínio grave na função do fígado, afetando o metabolismo corporal.",
+        depressao: "Distúrbio mental que causa tristeza persistente, perda de interesse e alterações emocionais.",
+        ansiedade: "Condição caracterizada por preocupação excessiva e sintomas físicos como palpitações.",
+        transtorno_bipolar: "Condição mental que alterna entre períodos de depressão e episódios de euforia.",
+        esquizofrenia: "Doença mental crônica que afeta a percepção, pensamento e comportamento.",
+        toc: "Distúrbio que causa pensamentos obsessivos e comportamentos compulsivos repetitivos.",
+        epilepsia: "Condição neurológica caracterizada por episódios recorrentes de convulsões.",
+        alzheimer: "Doença neurodegenerativa que causa perda progressiva de memória e função cognitiva.",
+        parkinson: "Distúrbio neurodegenerativo que afeta os movimentos e causa tremores.",
+        avc: "Interrupção do fluxo sanguíneo no cérebro, podendo causar danos neurológicos.",
+        esclerose_multipla: "Doença autoimune que afeta o sistema nervoso central, causando fraqueza e coordenação prejudicada.",
+        lupus: "Doença autoimune que pode afetar a pele, articulações, rins e outros órgãos.",
+        artrite_reumatoide: "Doença autoimune que causa inflamação crônica nas articulações.",
+        esclerodermia: "Doença autoimune que causa endurecimento e espessamento da pele.",
+        diabetes_tipo_1: "Forma de diabetes em que o sistema imunológico ataca as células produtoras de insulina.",
+        psoriase: "Doença autoimune que afeta a pele, causando lesões vermelhas e descamação.",
+        tuberculose: "Infecção bacteriana que afeta principalmente os pulmões, mas pode se espalhar para outros órgãos.",
+        hiv: "Vírus que ataca o sistema imunológico, reduzindo a capacidade do corpo de combater infecções.",
+        gripe: "Infecção viral respiratória, frequentemente acompanhada de febre, tosse e dores no corpo.",
+        dengue: "Doença viral transmitida por mosquitos, causando febre alta, dor muscular e em casos graves, hemorragia.",
+        malaria: "Doença parasitária transmitida por mosquitos, causando febre, calafrios e anemia."
+    };
 
-    // Chamar a função detectarInteracoes para obter interações entre doenças
+    const selectedDiseases = Array.from(document.querySelectorAll("input[type='checkbox']:checked"))
+    .map(checkbox => checkbox.id.replace("-", "_"));
+
+    // Mapeamento de medicamentos a evitar por doença
+    const medicamentosEvitarPorDoenca = {
+        hipertensao: [
+            { medicamento: 'Atenolol', motivo: 'Pode aumentar a pressão arterial em pessoas com insuficiência renal.' },
+            { medicamento: 'Ibuprofeno', motivo: 'Pode causar retenção de líquidos, elevando a pressão arterial.' },
+            { medicamento: 'Prednisona', motivo: 'Pode levar a retenção de sódio e água, elevando a pressão arterial.' }
+        ],
+        arritmia: [
+            { medicamento: 'Aspirina', motivo: 'Pode interferir na coagulação sanguínea e aumentar o risco de sangramentos.' },
+            { medicamento: 'Adrenalina', motivo: 'Pode piorar os episódios de arritmia.' },
+            { medicamento: 'Fentanil', motivo: 'Pode aumentar o risco de arritmias cardíacas em algumas situações.' }
+        ],
+        infarto: [
+            { medicamento: 'Ibuprofeno', motivo: 'Pode aumentar o risco de infarto e outros eventos cardiovasculares.' },
+            { medicamento: 'Doxiciclina', motivo: 'Pode afetar a função cardíaca e aumentar o risco de arritmias.' }
+        ],
+        insuficiencia_cardiaca: [
+            { medicamento: 'Atenolol', motivo: 'Pode agravar a insuficiência cardíaca em altas doses.' },
+            { medicamento: 'Ibuprofeno', motivo: 'Pode piorar a insuficiência cardíaca devido à retenção de sódio.' }
+        ],
+        doenca_coronaria: [
+            { medicamento: 'Ibuprofeno', motivo: 'Pode aumentar o risco de infarto e outros eventos cardiovasculares.' },
+            { medicamento: 'Cox-2', motivo: 'Aumenta o risco de complicações cardiovasculares em pacientes com doenças coronárias.' }
+        ],
+        diabetes: [
+            { medicamento: 'Corticosteróides', motivo: 'Podem aumentar os níveis de glicose no sangue, dificultando o controle da diabetes.' },
+            { medicamento: 'Ibuprofeno', motivo: 'Pode afetar a função renal, prejudicando o controle glicêmico.' }
+        ],
+        obesidade: [
+            { medicamento: 'Fentanil', motivo: 'Pode afetar o metabolismo e contribuir para a retenção de líquidos.' },
+            { medicamento: 'Antidepressivos', motivo: 'Alguns antidepressivos podem causar ganho de peso, agravando a obesidade.' }
+        ],
+        dislipidemia: [
+            { medicamento: 'Ibuprofeno', motivo: 'Pode aumentar os níveis de colesterol e triglicerídeos em algumas pessoas.' },
+            { medicamento: 'Estatinas', motivo: 'Podem ter interações com outros medicamentos que afetam o metabolismo lipídico.' }
+        ],
+        hipertireoidismo: [
+            { medicamento: 'Amiodarona', motivo: 'Pode agravar a função tireoidiana e desencadear episódios de hipertiroidismo.' },
+            { medicamento: 'Iodeto de potássio', motivo: 'Pode piorar os sintomas do hipertireoidismo.' }
+        ],
+        gota: [
+            { medicamento: 'Aspirina', motivo: 'Pode reduzir a excreção de ácido úrico, agravando a gota.' },
+            { medicamento: 'Diuréticos', motivo: 'Podem aumentar os níveis de ácido úrico no sangue, desencadeando crises de gota.' }
+        ],
+        asma: [
+            { medicamento: 'Beta-bloqueadores', motivo: 'Podem desencadear broncoespasmos e agravar a asma.' },
+            { medicamento: 'Aspirina', motivo: 'Pode causar exacerbação da asma em pacientes sensíveis.' }
+        ],
+        bronquite: [
+            { medicamento: 'Beta-bloqueadores', motivo: 'Podem agravar os sintomas respiratórios e piorar a bronquite.' },
+            { medicamento: 'Aspirina', motivo: 'Pode aumentar o risco de irritação nas vias respiratórias e exacerbar a bronquite.' }
+        ],
+        enfisema: [
+            { medicamento: 'Opioides', motivo: 'Podem causar depressão respiratória e agravar a falta de ar.' },
+            { medicamento: 'Benzodiazepínicos', motivo: 'Pode prejudicar a função respiratória em pessoas com enfisema.' }
+        ],
+        fibrose_pulmonar: [
+            { medicamento: 'Amiodarona', motivo: 'Pode causar toxicidade pulmonar e agravar a fibrose pulmonar.' },
+            { medicamento: 'Metotrexato', motivo: 'Pode causar efeitos adversos pulmonares, piorando a fibrose.' }
+        ],
+        pneumonia: [
+            { medicamento: 'Aminoglicosídeos', motivo: 'Podem causar toxicidade renal e auditiva, prejudicando o tratamento de pneumonia.' },
+            { medicamento: 'Corticosteróides', motivo: 'Podem suprimir o sistema imunológico, dificultando a recuperação de infecções respiratórias.' }
+        ],
+        insuficiencia_renal: [
+            { medicamento: 'Ibuprofeno', motivo: 'Pode piorar a função renal, aumentando o risco de insuficiência renal aguda.' },
+            { medicamento: 'Diuréticos', motivo: 'Podem sobrecarregar os rins, piorando a insuficiência renal.' }
+        ],
+        litis_renal: [
+            { medicamento: 'Diuréticos', motivo: 'Podem aumentar a formação de cálculos renais devido à desidratação.' },
+            { medicamento: 'Aspirina', motivo: 'Pode aumentar a probabilidade de formação de pedras nos rins.' }
+        ],
+        glomerulonefrite: [
+            { medicamento: 'AINEs', motivo: 'Podem agravar a função renal, piorando a inflamação dos glomérulos.' },
+            { medicamento: 'Corticosteróides', motivo: 'Podem ter efeitos adversos sobre os rins e aumentar a retenção de líquidos.' }
+        ],
+        nefropatia: [
+            { medicamento: 'Ibuprofeno', motivo: 'Pode agravar a função renal e piorar a nefropatia.' },
+            { medicamento: 'Diuréticos', motivo: 'Podem aumentar a pressão sobre os rins, agravando a nefropatia.' }
+        ],
+        infeccao_urinaria: [
+            { medicamento: 'Antibióticos de largo espectro', motivo: 'Podem alterar a microbiota intestinal e aumentar o risco de infecções recorrentes.' },
+            { medicamento: 'Diuréticos', motivo: 'Podem agravar a desidratação, dificultando a eliminação da infecção.' }
+        ],
+        cirrose: [
+            { medicamento: 'Paracetamol', motivo: 'Pode causar dano hepático adicional e agravar a cirrose.' },
+            { medicamento: 'Corticosteróides', motivo: 'Podem prejudicar a função hepática e agravar a cirrose.' }
+        ],
+        hepatite: [
+            { medicamento: 'Paracetamol', motivo: 'Pode causar toxicidade hepática, agravando a hepatite.' },
+            { medicamento: 'Corticosteróides', motivo: 'Podem afetar a função hepática e agravar a hepatite.' }
+        ],
+        esteatose_hepatica: [
+            { medicamento: 'Corticosteróides', motivo: 'Podem causar acúmulo de gordura no fígado e agravar a esteatose.' },
+            { medicamento: 'Metotrexato', motivo: 'Pode aumentar o risco de danos hepáticos em pessoas com esteatose hepática.' }
+        ],
+        colestase: [
+            { medicamento: 'Paracetamol', motivo: 'Pode piorar a colestase devido ao impacto no fígado.' },
+            { medicamento: 'Antibióticos', motivo: 'Alguns podem agravar a colestase e prejudicar o funcionamento hepático.' }
+        ],
+        insuficiencia_hepatica: [
+            { medicamento: 'Paracetamol', motivo: 'Pode sobrecarregar o fígado e piorar a insuficiência hepática.' },
+            { medicamento: 'AINEs', motivo: 'Podem agravar a função hepática e causar complicações na insuficiência hepática.' }
+        ],
+        depressao: [
+            { medicamento: 'Corticosteróides', motivo: 'Podem agravar os sintomas de depressão, alterando o equilíbrio químico cerebral.' },
+            { medicamento: 'Antidepressivos tricíclicos', motivo: 'Podem ter efeitos sedativos excessivos, causando agravamento da depressão.' }
+        ],
+        ansiedade: [
+            { medicamento: 'Antidepressivos tricíclicos', motivo: 'Podem causar efeitos sedativos excessivos e piorar a ansiedade.' },
+            { medicamento: 'Café', motivo: 'Pode aumentar a ansiedade devido ao efeito estimulante da cafeína.' }
+        ],
+        transtorno_bipolar: [
+            { medicamento: 'Antidepressivos', motivo: 'Podem desencadear episódios maníacos em pessoas com transtorno bipolar.' },
+            { medicamento: 'Corticosteróides', motivo: 'Podem causar alterações no humor, exacerbando sintomas do transtorno bipolar.' }
+        ],
+        esquizofrenia: [
+            { medicamento: 'Corticosteróides', motivo: 'Podem agravar os sintomas psicóticos e prejudicar o tratamento da esquizofrenia.' },
+            { medicamento: 'Antidepressivos', motivo: 'Alguns podem causar interações prejudiciais, exacerbando sintomas psicóticos.' }
+        ],
+        toc: [
+            { medicamento: 'Antidepressivos tricíclicos', motivo: 'Podem agravar os sintomas de TOC, causando efeitos sedativos excessivos.' },
+            { medicamento: 'Corticosteróides', motivo: 'Podem piorar a ansiedade e os sintomas do TOC.' }
+        ],
+        epilepsia: [
+            { medicamento: 'Antidepressivos', motivo: 'Alguns antidepressivos podem reduzir a eficácia dos anticonvulsivantes.' },
+            { medicamento: 'Benzodiazepínicos', motivo: 'Pode interferir na ação dos anticonvulsivantes e aumentar os riscos de convulsões.' }
+        ],
+        alzheimer: [
+            { medicamento: 'Anticolinérgicos', motivo: 'Podem agravar a perda de memória e os sintomas da doença de Alzheimer.' },
+            { medicamento: 'Benzodiazepínicos', motivo: 'Podem prejudicar a cognição e aumentar o risco de demência.' }
+        ],
+        parkinson: [
+            { medicamento: 'Antipsicóticos', motivo: 'Podem agravar os sintomas motores do Parkinson e reduzir a eficácia dos medicamentos para a doença.' },
+            { medicamento: 'Anticolinérgicos', motivo: 'Podem piorar os sintomas do Parkinson e causar efeitos colaterais no sistema nervoso.' }
+        ],
+        avc: [
+            { medicamento: 'Anticoagulantes', motivo: 'Podem aumentar o risco de hemorragias cerebrais após um AVC.' },
+            { medicamento: 'Antidepressivos tricíclicos', motivo: 'Podem afetar a recuperação pós-AVC, aumentando os riscos de complicações.' }
+        ],
+        esclerose_multipla: [
+            { medicamento: 'Imunossupressores', motivo: 'Podem agravar os sintomas da esclerose múltipla, reduzindo a eficácia do tratamento.' },
+            { medicamento: 'Corticosteróides', motivo: 'Podem ter efeitos colaterais que agravam os sintomas da esclerose múltipla.' }
+        ],
+        lupus: [
+            { medicamento: 'Corticosteróides', motivo: 'Podem agravar a inflamação e os sintomas do lupus.' },
+            { medicamento: 'Imunossupressores', motivo: 'Podem causar efeitos colaterais graves, enfraquecendo o sistema imunológico.' }
+        ]
+    };
+    
+
     const interacoes = detectarInteracoes(selectedDiseases);
 
-    // Cria uma nova instância do jsPDF
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    // Configurações de fontes e cores
     doc.setFont('helvetica', 'normal');
-    doc.setTextColor(0, 0, 0); // Cor do texto
-    doc.setFillColor(255, 255, 255); // Cor de fundo
+    doc.setTextColor(0, 0, 0);
 
-    // Título do relatório
+    // Título
     let title = 'Relatório de Comorbidades e Medicamentos a Evitar';
     let titleFontSize = 24;
     doc.setFont('helvetica', 'bold');
-    doc.setTextColor(169, 169, 169); // Cor do título
+    doc.setTextColor(169, 169, 169);
 
-    // Verifica o comprimento do título e ajusta o tamanho da fonte se necessário
-    while (doc.getTextWidth(title) > 170) { // Largura máxima da linha, ajustada para 170mm
-        titleFontSize -= 2; // Diminui o tamanho da fonte
+    while (doc.getTextWidth(title) > 170) {
+        titleFontSize -= 2;
         doc.setFontSize(titleFontSize);
     }
-
-    // Adiciona o título com tamanho ajustado
     doc.text(title, 20, 20);
 
-    // Adiciona a data e hora
+    // Data e hora
     const currentDate = new Date();
     const dateString = `${currentDate.getDate().toString().padStart(2, '0')}/${(currentDate.getMonth() + 1).toString().padStart(2, '0')}/${currentDate.getFullYear()} ${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}`;
-
-    doc.setFontSize(12); // Tamanho da fonte para a data
-    doc.setTextColor(150, 150, 150); // Cor da data (cinza)
+    doc.setFontSize(12);
+    doc.setTextColor(150, 150, 150);
     doc.text(`Data e Hora: ${dateString}`, 20, 30);
 
-    // Linha de separação para uma aparência mais limpa
-    doc.setDrawColor(169, 169, 169); // Cor da linha
+    doc.setDrawColor(169, 169, 169);
     doc.setLineWidth(0.5);
-    doc.line(20, 34, 190, 34); // Linha abaixo do título e data
+    doc.line(20, 34, 190, 34);
 
-    // Comorbidades selecionadas
-    let yPosition = 40;
-    doc.setFontSize(18); // Tamanho da seção
-    doc.setTextColor(169, 169, 169); // Cor da seção
-    doc.text('Comorbidades Selecionadas:', 20, yPosition);
-    yPosition += 10;
+    // Doenças e descrições
+    const tabelaDoencas = selectedDiseases.map(disease => ({
+        Doença: disease.replace("_", " ").toUpperCase(),
+        Descrição: descricaoDoencas[disease] || "Descrição não encontrada."
+    }));
 
-    selectedListItems.forEach(item => {
-        doc.setFontSize(14); // Tamanho do texto
-        doc.setTextColor(0, 0, 0); // Cor do texto
-        // Verifica se o conteúdo ultrapassou o limite da página
-        if (yPosition > 270) {
-            doc.addPage(); // Adiciona uma nova página
-            yPosition = 20; // Reinicia a posição Y
-        }
-        doc.text(`- ${item.textContent}`, 20, yPosition);
-        yPosition += 10;
+    doc.setFontSize(18);
+    doc.setTextColor(169, 169, 169);
+    doc.text('Comorbidades Selecionadas e Descrições:', 20, 40);
+
+    doc.autoTable({
+        startY: 50,
+        head: [['Doença', 'Descrição']],
+        body: tabelaDoencas.map(({ Doença, Descrição }) => [Doença, Descrição]),
+        theme: 'grid',
+        styles: { fontSize: 12, cellPadding: 3 },
+        headStyles: { fillColor: [169, 169, 169], textColor: 255 },
+        columnStyles: { 0: { cellWidth: 50 }, 1: { cellWidth: 120 } }
     });
 
-    // Espaço entre as seções
-    yPosition += 10;
+    let yPosition = doc.autoTable.previous.finalY + 10;
 
-    // Medicamentos a evitar
-    doc.setTextColor(169, 169, 169); // Cor da seção
-    doc.text('Medicamentos a Evitar:', 20, yPosition);
-    yPosition += 10;
-
-    medicamentoListItems.forEach(item => {
-        doc.setFontSize(14); // Tamanho do texto
-        doc.setTextColor(0, 0, 0); // Cor do texto
-        // Verifica se o conteúdo ultrapassou o limite da página
-        if (yPosition > 270) {
-            doc.addPage(); // Adiciona uma nova página
-            yPosition = 20; // Reinicia a posição Y
-        }
-        doc.text(`- ${item.textContent}`, 20, yPosition);
-        yPosition += 10;
-    });
-
-    // Espaço para interações entre doenças
-    if (interacoes.length > 0) {
-        yPosition += 10;
-        doc.setTextColor(169, 169, 169); // Cor da seção
-        doc.text('Interações entre Doenças:', 20, yPosition);
+    // Medicamentos a evitar como tabela
+    if (medicamentoListItems.length > 0) {
+        doc.setTextColor(169, 169, 169);
+        doc.text('Medicamentos a Evitar:', 20, yPosition);
         yPosition += 10;
 
-        interacoes.forEach(interacao => {
-            doc.setFontSize(14); // Tamanho do texto
-            doc.setTextColor(0, 0, 0); // Cor do texto
-
-            // Justificar o texto
-            let text = `- ${interacao}`;
-            let maxWidth = 170; // Largura máxima para o texto justificado
-            let splitText = doc.splitTextToSize(text, maxWidth); // Divide o texto para caber na largura
-
-            // Verifica se o conteúdo ultrapassou o limite da página
-            if (yPosition + splitText.length * 10 > 270) {
-                doc.addPage(); // Adiciona uma nova página
-                yPosition = 20; // Reinicia a posição Y
+        // Para cada doença selecionada, obter os medicamentos a evitar e seus motivos
+        const medicamentosTabela = [];
+        selectedDiseases.forEach(disease => {
+            if (medicamentosEvitarPorDoenca[disease]) {
+                medicamentosEvitarPorDoenca[disease].forEach(({ medicamento, motivo }) => {
+                    medicamentosTabela.push([medicamento, motivo]);
+                });
             }
-
-            // Adiciona o texto justificado
-            splitText.forEach(line => {
-                doc.text(line, 20, yPosition);
-                yPosition += 10;
-            });
         });
+
+        doc.autoTable({
+            startY: yPosition,
+            head: [['Medicamento', 'Motivo para Evitar']],
+            body: medicamentosTabela,
+            theme: 'grid',
+            styles: { fontSize: 12, cellPadding: 3 },
+            headStyles: { fillColor: [200, 0, 0], textColor: 255 },
+        });
+
+        yPosition = doc.autoTable.previous.finalY + 10;
     }
 
-    // Linha de separação final
-    doc.line(20, yPosition + 5, 190, yPosition + 5); // Linha final
+// Interações justificadas com ícones
+if (interacoes.length > 0) {
+    doc.setTextColor(169, 169, 169); // Cor cinza para o título
+    doc.setFontSize(18);
+    doc.text('Interações entre Doenças:', 20, yPosition);
+    yPosition += 10;
 
-    // Salva o PDF
+    interacoes.forEach(interacao => {
+        doc.setFontSize(14);
+        doc.setTextColor(0, 0, 0); // Cor preta para o texto das interações
+        const splitText = doc.splitTextToSize(`[ATENÇÃO] ${interacao}`, 170); // Substitui o ícone por texto simples
+
+        // Verifica se o texto vai ultrapassar o limite da página
+        if (yPosition + splitText.length * 10 > 270) {
+            doc.addPage(); // Adiciona uma nova página caso ultrapasse
+            yPosition = 20; // Reseta a posição para o topo
+        }
+
+        // Adiciona cada linha do texto na página
+        splitText.forEach(line => {
+            doc.text(line, 20, yPosition);
+            yPosition += 10; // Move para a próxima linha
+        });
+    });
+}
+
+    doc.line(20, yPosition + 5, 190, yPosition + 5);
+
     doc.save('relatorio_comorbidades_medicamentos.pdf');
 }
